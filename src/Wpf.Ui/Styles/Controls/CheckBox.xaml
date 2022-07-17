@@ -127,6 +127,18 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <Binding RelativeSource="{RelativeSource Mode=Self}"
+                                         Path="IsEdited" />
+                            </DataTrigger.Binding>
+
+                            <DataTrigger.Setters>
+                                <Setter TargetName="ControlBorderIconPresenter"
+                                        Property="Background"
+                                        Value="Red" />
+                            </DataTrigger.Setters>
+                        </DataTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
@@ -156,12 +168,26 @@
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="ControlBorderIconPresenter" Property="Background" Value="{DynamicResource ControlFillColorDisabledBrush}" />
-                            <Setter TargetName="ControlBorderIconPresenter" Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
-                            <Setter TargetName="ControlIcon" Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
-                            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
-                        </Trigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}"
+                                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}"
+                                           Value="True" />
+
+                                <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEdited}"
+                                           Value="True" />
+                            </MultiDataTrigger.Conditions>
+
+                            <Setter TargetName="ControlBorderIconPresenter"
+                                    Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Opacity="0.8"
+                                                     Color="Red" />
+                                </Setter.Value>
+                            </Setter>
+                        </MultiDataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -171,4 +197,3 @@
     <Style BasedOn="{StaticResource DefaultCheckBoxStyle}" TargetType="{x:Type CheckBox}" />
 
 </ResourceDictionary>
-
