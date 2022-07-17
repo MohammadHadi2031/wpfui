@@ -37,7 +37,10 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// Property for <see cref="Value"/>.
     /// </summary>
     public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value),
-        typeof(double), typeof(NumberBox), new PropertyMetadata(0.0d));
+        typeof(double), typeof(NumberBox), new FrameworkPropertyMetadata(0.0d, ValuePropertyChangedCallback)
+        {
+            BindsTwoWayByDefault = true,
+        });
 
     /// <summary>
     /// Property for <see cref="Step"/>.
@@ -92,6 +95,18 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// </summary>
     public static readonly RoutedEvent DecrementedEvent = EventManager.RegisterRoutedEvent(
         nameof(Decremented), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NumberBox));
+
+    private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not NumberBox numberBox)
+        {
+            return;
+        }
+
+        var value = (double)e.NewValue;
+        var text = numberBox.FormatDoubleToString(value);
+        numberBox.Text = text;
+    }
 
     /// <summary>
     /// <see cref="NumberBox"/> does no accept returns.
