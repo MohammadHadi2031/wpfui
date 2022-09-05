@@ -100,6 +100,8 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     public static readonly RoutedEvent DecrementedEvent = EventManager.RegisterRoutedEvent(
         nameof(Decremented), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NumberBox));
 
+    private string _cachedText = "";
+
     private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is not NumberBox numberBox)
@@ -372,10 +374,10 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         if (!decimalRegex.IsMatch(inputText))
             return false;
 
-        if (inputText.Contains(",") && inputText.Substring(inputText.IndexOf(",")).Length > decimalPlaces)
+        if (inputText.Contains(",") && inputText.Substring(inputText.IndexOf(",") + 1).Length > decimalPlaces)
             return false;
 
-        if (inputText.Contains(".") && inputText.Substring(inputText.IndexOf(".")).Length > decimalPlaces)
+        if (inputText.Contains(".") && inputText.Substring(inputText.IndexOf(".") + 1).Length > decimalPlaces)
             return false;
 
         return true;
@@ -445,7 +447,6 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             e.Handled = true;
         }
 
-        System.Diagnostics.Debug.WriteLine($"preview key down {e.Key}");
         base.OnPreviewKeyDown(e);
     }
 
@@ -459,6 +460,19 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     {
         base.OnTextChanged(e);
 
+        if (!string.IsNullOrEmpty(Text) &&
+            !IsNumberTextValid(Text))
+        {
+            Text = _cachedText;
+        }
+
+        if (!string.IsNullOrEmpty(Text) &&
+            Min >= 0 && Text.StartsWith("-"))
+        {
+            Text = _cachedText;
+        }
+
+        _cachedText = Text;
         var currentText = Text;
         var parsedNumber = ParseStringToDouble(currentText);
 
@@ -485,14 +499,14 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// <inheritdoc />
     protected override void OnPreviewTextInput(TextCompositionEventArgs e)
     {
-        var newText = Text + (e.Text ?? String.Empty);
+        //var newText = Text + (e.Text ?? String.Empty);
 
-        if (!String.IsNullOrEmpty(newText))
-            e.Handled = !IsNumberTextValid(newText);
+        //if (!String.IsNullOrEmpty(newText))
+        //    e.Handled = !IsNumberTextValid(newText);
 
-        // Do not allow a leading minus sign if the min value is greater than zero.
-        if (Min >= 0 && newText.StartsWith("-"))
-            e.Handled = true;
+        //// Do not allow a leading minus sign if the min value is greater than zero.
+        //if (Min >= 0 && newText.StartsWith("-"))
+        //    e.Handled = true;
 
 
         base.OnPreviewTextInput(e);
