@@ -412,6 +412,25 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// <inheritdoc />
     protected override void OnKeyUp(KeyEventArgs e)
     {
+        //if (e.Key == Key.Up)
+        //{
+        //    IncrementValue();
+
+        //    e.Handled = true;
+        //}
+
+        //if (e.Key == Key.Down)
+        //{
+        //    DecrementValue();
+
+        //    e.Handled = true;
+        //}
+
+        base.OnKeyUp(e);
+    }
+
+    protected override void OnPreviewKeyDown(KeyEventArgs e)
+    {
         if (e.Key == Key.Up)
         {
             IncrementValue();
@@ -426,7 +445,13 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             e.Handled = true;
         }
 
-        base.OnKeyUp(e);
+        System.Diagnostics.Debug.WriteLine($"preview key down {e.Key}");
+        base.OnPreviewKeyDown(e);
+    }
+
+    protected override void OnKeyDown(KeyEventArgs e)
+    {
+        base.OnKeyDown(e);
     }
 
     /// <inheritdoc />
