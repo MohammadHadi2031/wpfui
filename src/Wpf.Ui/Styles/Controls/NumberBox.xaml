@@ -142,7 +142,7 @@
                                         <SolidColorBrush Color="{DynamicResource TextFillColorTertiary}" />
                                     </controls:Button.Foreground>
                                 </controls:Button>
-                                <controls:Button
+                                <controls:RepeatButton
                                     x:Name="IncrementButton"
                                     Grid.Column="3"
                                     Width="{StaticResource NumberBoxButtonHeight}"
@@ -161,11 +161,11 @@
                                     Cursor="Arrow"
                                     FontSize="{StaticResource NumberBoxButtonIconSize}"
                                     Icon="ChevronUp24">
-                                    <controls:Button.Foreground>
+                                    <controls:RepeatButton.Foreground>
                                         <SolidColorBrush Color="{DynamicResource TextFillColorTertiary}" />
-                                    </controls:Button.Foreground>
-                                </controls:Button>
-                                <controls:Button
+                                    </controls:RepeatButton.Foreground>
+                                </controls:RepeatButton>
+                                <controls:RepeatButton
                                     x:Name="DecrementButton"
                                     Grid.Column="4"
                                     Width="{StaticResource NumberBoxButtonHeight}"
@@ -184,10 +184,10 @@
                                     Cursor="Arrow"
                                     FontSize="{StaticResource NumberBoxButtonIconSize}"
                                     Icon="ChevronDown24">
-                                    <controls:Button.Foreground>
+                                    <controls:RepeatButton.Foreground>
                                         <SolidColorBrush Color="{DynamicResource TextFillColorTertiary}" />
-                                    </controls:Button.Foreground>
-                                </controls:Button>
+                                    </controls:RepeatButton.Foreground>
+                                </controls:RepeatButton>
                                 <controls:SymbolIcon
                                     x:Name="ControlIconRight"
                                     Grid.Column="5"
