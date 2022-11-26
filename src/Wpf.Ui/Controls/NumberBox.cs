@@ -101,6 +101,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         nameof(Decremented), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NumberBox));
 
     private string _cachedText = "";
+    private bool _isUpdatingTextByCode;
 
     private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -109,9 +110,18 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             return;
         }
 
+        numberBox.ValuePropertyChangedCallback(e);
+
+    }
+
+    private void ValuePropertyChangedCallback(DependencyPropertyChangedEventArgs e)
+    {
         var value = (double)e.NewValue;
-        var text = numberBox.FormatDoubleToString(value);
-        numberBox.Text = text;
+        var text = FormatDoubleToString(value);
+
+        _isUpdatingTextByCode = true;
+        Text = text;
+        _isUpdatingTextByCode = false;
     }
 
     /// <summary>
@@ -309,7 +319,13 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     private void IncrementValue()
     {
         var currentText = Text;
-        var parsedNumber = ParseStringToDouble(currentText) + Step;
+
+        if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        {
+            return;
+        }
+
+        parsedNumber += Step;
 
         if (String.IsNullOrWhiteSpace(currentText) || parsedNumber > Max)
         {
@@ -329,7 +345,13 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     private void DecrementValue()
     {
         var currentText = Text;
-        var parsedNumber = ParseStringToDouble(currentText) - Step;
+
+        if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        {
+            return;
+        }
+
+        parsedNumber -= Step;
 
         if (String.IsNullOrWhiteSpace(currentText) || parsedNumber < Min)
         {
@@ -396,11 +418,9 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// <summary>
     /// Tries to parse provided string to double with invariant culture.
     /// </summary>
-    private double ParseStringToDouble(string inputText)
+    private bool TryParseStringToDouble(string inputText, out double number)
     {
-        Double.TryParse(inputText, NumberStyles.Any, CultureInfo.InvariantCulture, out double number);
-
-        return number;
+        return double.TryParse(inputText, NumberStyles.Any, CultureInfo.InvariantCulture, out number);
     }
 
     /// <summary>
@@ -408,7 +428,9 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// </summary>
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        _isUpdatingTextByCode = true;
         Text = FormatDoubleToString(Value);
+        _isUpdatingTextByCode = false;
     }
 
     /// <inheritdoc />
@@ -447,6 +469,12 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             e.Handled = true;
         }
 
+        if (e.Key == Key.Enter)
+        {
+            UpdateText();
+            e.Handled = true;
+        }
+
         base.OnPreviewKeyDown(e);
     }
 
@@ -460,39 +488,74 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     {
         base.OnTextChanged(e);
 
-        if (!string.IsNullOrEmpty(Text) &&
-            !IsNumberTextValid(Text))
+        if (!_isUpdatingTextByCode)
         {
-            Text = _cachedText;
+            return;
         }
 
-        if (!string.IsNullOrEmpty(Text) &&
-            Min >= 0 && Text.StartsWith("-"))
-        {
-            Text = _cachedText;
-        }
-
-        _cachedText = Text;
         var currentText = Text;
-        var parsedNumber = ParseStringToDouble(currentText);
+        if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        {
+            return;
+        }
 
-        PlaceholderEnabled = currentText.Length < 1;
-
-        // TODO: Meh
         if (parsedNumber > Max)
         {
             UpdateValue(Max, true);
-
             return;
         }
 
         if (parsedNumber < Min)
         {
             UpdateValue(Min, true);
-
             return;
         }
 
+        UpdateValue(parsedNumber, true);
+    }
+
+    protected override void OnLostFocus(RoutedEventArgs e)
+    {
+        base.OnLostFocus(e);
+        UpdateText();
+    }
+
+    private void UpdateText()
+    {
+        if (!string.IsNullOrEmpty(Text) &&
+                    !IsNumberTextValid(Text))
+        {
+            Text = _cachedText;
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(Text) &&
+            Min >= 0 && Text.StartsWith("-"))
+        {
+            Text = _cachedText;
+            return;
+        }
+
+        if (!TryParseStringToDouble(Text, out var parsedNumber))
+        {
+            return;
+        }
+
+        if (parsedNumber > Max)
+        {
+            UpdateValue(Max, true);
+            return;
+        }
+
+        if (parsedNumber < Min)
+        {
+            UpdateValue(Min, true);
+            return;
+        }
+
+        var currentText = Text;
+        _cachedText = Text;
+        PlaceholderEnabled = currentText.Length < 1;
         UpdateValue(parsedNumber, true);
     }
 
