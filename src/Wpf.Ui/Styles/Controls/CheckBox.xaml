@@ -127,6 +127,21 @@
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsChecked"
+                                           Value="True" />
+                                <Condition Property="IsEnabled"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ControlBorderIconPresenter"
+                                    Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Opacity="0.4"
+                                                     Color="{DynamicResource SystemAccentColorSecondary}" />
+                                </Setter.Value>
+                            </Setter>
+                        </MultiTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
