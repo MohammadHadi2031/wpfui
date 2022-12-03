@@ -314,12 +314,12 @@
                                             <ScrollViewer
                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                 Margin="0"
-                                                HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                                HorizontalScrollBarVisibility="Auto"
                                                 SnapsToDevicePixels="True"
                                                 TextElement.FontSize="{TemplateBinding FontSize}"
                                                 TextElement.FontWeight="{TemplateBinding FontWeight}"
                                                 TextElement.Foreground="{TemplateBinding Foreground}"
-                                                VerticalScrollBarVisibility="Visible">
+                                                VerticalScrollBarVisibility="Auto">
                                                 <StackPanel
                                                     IsItemsHost="True"
                                                     KeyboardNavigation.DirectionalNavigation="Contained"
