@@ -318,7 +318,13 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// </summary>
     private void IncrementValue()
     {
-        var currentText = Text;
+        var currentText = Text?.Trim();
+
+        if (string.IsNullOrEmpty(currentText))
+        {
+            UpdateValue(Min, true);
+            return;
+        }
 
         if (!TryParseStringToDouble(currentText, out var parsedNumber))
         {
@@ -345,6 +351,12 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     private void DecrementValue()
     {
         var currentText = Text;
+
+        if (string.IsNullOrEmpty(currentText))
+        {
+            UpdateValue(Min, true);
+            return;
+        }
 
         if (!TryParseStringToDouble(currentText, out var parsedNumber))
         {
@@ -522,21 +534,29 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
 
     private void UpdateText()
     {
-        if (!string.IsNullOrEmpty(Text) &&
-                    !IsNumberTextValid(Text))
+        var currentText = Text?.Trim();
+
+        if (!string.IsNullOrEmpty(currentText) &&
+                    !IsNumberTextValid(currentText))
         {
             Text = _cachedText;
             return;
         }
 
-        if (!string.IsNullOrEmpty(Text) &&
-            Min >= 0 && Text.StartsWith("-"))
+        if (!string.IsNullOrEmpty(currentText) &&
+            Min >= 0 && currentText.StartsWith("-"))
         {
             Text = _cachedText;
             return;
         }
 
-        if (!TryParseStringToDouble(Text, out var parsedNumber))
+        if (string.IsNullOrEmpty(currentText))
+        {
+            UpdateValue(Min, true);
+            return;
+        }
+
+        if (!TryParseStringToDouble(currentText, out var parsedNumber))
         {
             return;
         }
@@ -553,7 +573,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             return;
         }
 
-        var currentText = Text;
+        
         _cachedText = Text;
         PlaceholderEnabled = currentText.Length < 1;
         UpdateValue(parsedNumber, true);
