@@ -25,6 +25,8 @@
     <Thickness x:Key="ComboBoxItemContentMargin">10,8,8,8</Thickness>
     <system:Double x:Key="ComboBoxChevronSize">11.0</system:Double>
     <system:Double x:Key="ComboBoxPopupMinHeight">32.0</system:Double>
+    <SolidColorBrush x:Key="HighlightedComboBoxItemColor"
+                     Color="#e0e0e0" />
 
     <Style x:Key="DefaultComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
         <!--  Focus by parent element  -->
@@ -147,14 +149,15 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsHighlighted" Value="True">
-                            <Setter TargetName="ContentBorder" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="{DynamicResource ControlFillColorSecondary}" />
-                                </Setter.Value>
-                            </Setter>
+                            <Setter TargetName="ContentBorder"
+                                    Property="Background"
+                                    Value="{StaticResource HighlightedComboBoxItemColor}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="ActiveRectangle" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="ContentBorder"
+                                    Property="Background"
+                                    Value="{StaticResource HighlightedComboBoxItemColor}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Foreground">
@@ -300,15 +303,15 @@
                                         x:Name="DropDownBorder"
                                         Margin="0"
                                         Padding="0,4,0,6"
-                                        BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
-                                        BorderThickness="1"
+                                        BorderBrush="Black"
+                                        BorderThickness="0.5"
                                         CornerRadius="{DynamicResource PopupCornerRadius}"
                                         SnapsToDevicePixels="True">
                                         <Border.Background>
                                             <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}" />
                                         </Border.Background>
                                         <Grid>
-                                            <controls:DynamicScrollViewer
+                                            <ScrollViewer
                                                 MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                                 Margin="0"
                                                 HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
@@ -316,12 +319,12 @@
                                                 TextElement.FontSize="{TemplateBinding FontSize}"
                                                 TextElement.FontWeight="{TemplateBinding FontWeight}"
                                                 TextElement.Foreground="{TemplateBinding Foreground}"
-                                                VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                                VerticalScrollBarVisibility="Visible">
                                                 <StackPanel
                                                     IsItemsHost="True"
                                                     KeyboardNavigation.DirectionalNavigation="Contained"
                                                     TextElement.FontSize="{TemplateBinding FontSize}" />
-                                            </controls:DynamicScrollViewer>
+                                            </ScrollViewer>
                                         </Grid>
                                     </Border>
                                 </Popup>
