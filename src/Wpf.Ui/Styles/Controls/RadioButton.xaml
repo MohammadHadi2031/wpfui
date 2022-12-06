@@ -70,7 +70,7 @@
                                 StrokeThickness="{StaticResource RadioButtonStrokeThickness}"
                                 UseLayoutRounding="False">
                                 <Ellipse.Fill>
-                                    <SolidColorBrush Color="{DynamicResource ControlAltFillColorSecondary}" />
+                                    <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
                                 </Ellipse.Fill>
                             </Ellipse>
                             <!--  A seperate element is added since the two orthogonal state groups that cannot touch the same property  -->
@@ -202,6 +202,9 @@
                                 <Condition Property="IsEnabled" Value="False" />
                             </MultiTrigger.Conditions>
                             <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+                            <Setter TargetName="OuterEllipse"
+                                    Property="Fill"
+                                    Value="{DynamicResource ControlAltFillColorSecondary}" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
