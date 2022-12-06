@@ -37,7 +37,11 @@
         <!--  Universal WPF UI focus  -->
         <Setter Property="FocusVisualStyle" Value="{DynamicResource DefaultControlFocusVisualStyle}" />
         <!--  Universal WPF UI focus  -->
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
+            </Setter.Value>
+        </Setter>
         <Setter Property="Foreground">
             <Setter.Value>
                 <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
@@ -157,7 +161,7 @@
                             <Setter TargetName="ControlBorderIconPresenter"
                                     Property="Background">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="Red" Opacity="0.2"/>
+                                    <SolidColorBrush Color="{DynamicResource IsEditedColor}" Opacity="0.2"/>
                                 </Setter.Value>
                             </Setter>
                         </MultiDataTrigger>
@@ -179,7 +183,7 @@
                             <Setter TargetName="ControlBorderIconPresenter"
                                     Property="Background">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="Red" />
+                                    <SolidColorBrush Color="{DynamicResource IsEditedColor}" />
                                 </Setter.Value>
                             </Setter>
                         </MultiDataTrigger>
@@ -212,6 +216,16 @@
                                 </Setter.Value>
                             </Setter>
                         </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled"
+                                           Value="False" />
+                                <Condition Property="IsChecked"
+                                           Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ControlBorderIconPresenter"
+                                    Property="Background" Value="Transparent" />
+                        </MultiTrigger>
                         <MultiDataTrigger>
                             <MultiDataTrigger.Conditions>
                                 <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsEnabled}"
@@ -231,7 +245,7 @@
                                     Property="Background">
                                 <Setter.Value>
                                     <SolidColorBrush Opacity="0.8"
-                                                     Color="Red" />
+                                                     Color="{DynamicResource IsEditedColor}" />
                                 </Setter.Value>
                             </Setter>
                         </MultiDataTrigger>
