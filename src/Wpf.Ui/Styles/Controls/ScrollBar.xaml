@@ -131,7 +131,7 @@
             <Border
                 x:Name="PART_Border"
                 Grid.RowSpan="3"
-                Width="12"
+                Width="18"
                 HorizontalAlignment="Center"
                 CornerRadius="6">
                 <Border.Background>
@@ -149,7 +149,7 @@
             <Track
                 x:Name="PART_Track"
                 Grid.Row="1"
-                Width="6"
+                Width="12"
                 IsDirectionReversed="True">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="ScrollBar.PageUpCommand" Style="{StaticResource UiScrollBarPageButton}" />
@@ -183,8 +183,8 @@
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Track"
                                 Storyboard.TargetProperty="Width"
-                                From="6"
-                                To="10"
+                                From="12"
+                                To="16"
                                 Duration="{StaticResource ScrollAnimationDuration}" />
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Border"
@@ -213,8 +213,8 @@
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Track"
                                 Storyboard.TargetProperty="Width"
-                                From="10"
-                                To="6"
+                                From="16"
+                                To="12"
                                 Duration="{StaticResource ScrollAnimationDuration}" />
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Border"
@@ -251,7 +251,7 @@
             <Border
                 x:Name="PART_Border"
                 Grid.ColumnSpan="3"
-                Height="12"
+                Height="18"
                 VerticalAlignment="Center"
                 CornerRadius="6">
                 <Border.Background>
@@ -269,7 +269,7 @@
             <Track
                 x:Name="PART_Track"
                 Grid.Column="1"
-                Height="6"
+                Height="12"
                 VerticalAlignment="Center"
                 IsDirectionReversed="False">
                 <Track.DecreaseRepeatButton>
@@ -302,8 +302,8 @@
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Track"
                                 Storyboard.TargetProperty="Height"
-                                From="6"
-                                To="10"
+                                From="12"
+                                To="16"
                                 Duration="{StaticResource ScrollAnimationDuration}" />
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Border"
@@ -332,8 +332,8 @@
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Track"
                                 Storyboard.TargetProperty="Height"
-                                From="10"
-                                To="6"
+                                From="16"
+                                To="12"
                                 Duration="{StaticResource ScrollAnimationDuration}" />
                             <DoubleAnimation
                                 Storyboard.TargetName="PART_Border"
