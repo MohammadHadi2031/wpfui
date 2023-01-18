@@ -140,7 +140,7 @@
                             <ToggleButton
                                 x:Name="ExpanderToggleButton"
                                 Margin="0"
-                                Padding="{TemplateBinding Padding}"
+                                Padding="0, 0, 15, 0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 HorizontalContentAlignment="Stretch"
@@ -151,26 +151,26 @@
                                 OverridesDefaultStyle="True"
                                 Template="{StaticResource DefaultUiCardExpanderToggleButtonStyle}">
                                 <ToggleButton.Content>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <controls:SymbolIcon
-                                            x:Name="ControlIcon"
-                                            Grid.Column="0"
-                                            Margin="{StaticResource CardExpanderIconMargin}"
-                                            VerticalAlignment="Center"
-                                            Filled="{TemplateBinding IconFilled}"
-                                            FontSize="{StaticResource CardExpanderIconSize}"
-                                            Foreground="{TemplateBinding IconForeground}"
-                                            Symbol="{TemplateBinding Icon}" />
-                                        <ContentPresenter
-                                            x:Name="HeaderContentPresenter"
-                                            Grid.Column="1"
-                                            Content="{TemplateBinding Header}"
-                                            TextElement.Foreground="{TemplateBinding Foreground}" />
-                                    </Grid>
+                                    <Border Padding="{TemplateBinding Padding}">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <controls:SymbolIcon x:Name="ControlIcon"
+                                                                 Grid.Column="0"
+                                                                 Margin="{StaticResource CardExpanderIconMargin}"
+                                                                 VerticalAlignment="Center"
+                                                                 Filled="{TemplateBinding IconFilled}"
+                                                                 FontSize="{StaticResource CardExpanderIconSize}"
+                                                                 Foreground="{TemplateBinding IconForeground}"
+                                                                 Symbol="{TemplateBinding Icon}" />
+                                            <ContentPresenter x:Name="HeaderContentPresenter"
+                                                              Grid.Column="1"
+                                                              Content="{TemplateBinding Header}"
+                                                              TextElement.Foreground="{TemplateBinding Foreground}" />
+                                        </Grid>
+                                    </Border>
                                 </ToggleButton.Content>
                             </ToggleButton>
 
