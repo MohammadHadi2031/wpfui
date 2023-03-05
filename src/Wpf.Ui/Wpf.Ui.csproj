@@ -59,7 +59,7 @@
     <Resource Include="Fonts\FluentSystemIcons-Regular.ttf" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <None Update="License - Fira Code.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -72,7 +72,7 @@
     <None Update="License - Segoe Fluent Icons.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net461'">
     <PackageReference Include="System.Drawing.Common" />
