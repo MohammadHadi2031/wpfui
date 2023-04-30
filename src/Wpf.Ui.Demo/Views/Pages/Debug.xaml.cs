@@ -26,6 +26,11 @@ public partial class Debug : INavigableView<DebugViewModel>
         get;
     }
 
+    public Debug() : this(new DebugViewModel())
+    {
+        
+    }
+
     // MVVM
     public Debug(DebugViewModel viewModel)
     {
