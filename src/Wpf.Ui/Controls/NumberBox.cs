@@ -116,7 +116,14 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
 
     private void ValuePropertyChangedCallback(DependencyPropertyChangedEventArgs e)
     {
+        var oldValue = (double)e.OldValue;
         var value = (double)e.NewValue;
+
+        if (value > Max || value < Min)
+        {
+            value = oldValue;
+        }
+
         var text = FormatDoubleToString(value);
 
         _isUpdatingTextByCode = true;
@@ -500,30 +507,30 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     {
         base.OnTextChanged(e);
 
-        if (!_isUpdatingTextByCode)
-        {
-            return;
-        }
+        //if (!_isUpdatingTextByCode)
+        //{
+        //    return;
+        //}
 
-        var currentText = Text;
-        if (!TryParseStringToDouble(currentText, out var parsedNumber))
-        {
-            return;
-        }
+        //var currentText = Text;
+        //if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        //{
+        //    return;
+        //}
 
-        if (parsedNumber > Max)
-        {
-            UpdateValue(Max, true);
-            return;
-        }
+        //if (parsedNumber > Max)
+        //{
+        //    UpdateValue(Max, true);
+        //    return;
+        //}
 
-        if (parsedNumber < Min)
-        {
-            UpdateValue(Min, true);
-            return;
-        }
+        //if (parsedNumber < Min)
+        //{
+        //    UpdateValue(Min, true);
+        //    return;
+        //}
 
-        UpdateValue(parsedNumber, true);
+        //UpdateValue(parsedNumber, true);
     }
 
     protected override void OnLostFocus(RoutedEventArgs e)
@@ -561,22 +568,23 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             return;
         }
 
-        if (parsedNumber > Max)
-        {
-            UpdateValue(Max, true);
-            return;
-        }
+        //if (parsedNumber > Max)
+        //{
+        //    UpdateValue(Max, true);
+        //    return;
+        //}
 
-        if (parsedNumber < Min)
-        {
-            UpdateValue(Min, true);
-            return;
-        }
+        //if (parsedNumber < Min)
+        //{
+        //    UpdateValue(Min, true);
+        //    return;
+        //}
 
         
         _cachedText = Text;
         PlaceholderEnabled = currentText.Length < 1;
-        UpdateValue(parsedNumber, true);
+        //UpdateValue(parsedNumber, true);
+        Value = parsedNumber;
     }
 
     /// <inheritdoc />
