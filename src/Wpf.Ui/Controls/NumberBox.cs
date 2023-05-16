@@ -102,6 +102,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
 
     private string _cachedText = "";
     private bool _isUpdatingTextByCode;
+    private double _lastInRangeValue = 0d;
 
     private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -116,12 +117,15 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
 
     private void ValuePropertyChangedCallback(DependencyPropertyChangedEventArgs e)
     {
-        var oldValue = (double)e.OldValue;
         var value = (double)e.NewValue;
 
         if (value > Max || value < Min)
         {
-            value = oldValue;
+            value = _lastInRangeValue;
+        }
+        else
+        {
+            _lastInRangeValue = value;
         }
 
         var text = FormatDoubleToString(value);
@@ -507,10 +511,10 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     {
         base.OnTextChanged(e);
 
-        //if (!_isUpdatingTextByCode)
-        //{
-        //    return;
-        //}
+        if (!_isUpdatingTextByCode)
+        {
+            return;
+        }
 
         //var currentText = Text;
         //if (!TryParseStringToDouble(currentText, out var parsedNumber))
