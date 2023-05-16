@@ -126,6 +126,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         else
         {
             _lastInRangeValue = value;
+            _cachedText = FormatDoubleToString(_lastInRangeValue);
         }
 
         var text = FormatDoubleToString(value);
@@ -585,7 +586,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         //}
 
         
-        _cachedText = Text;
+        
         PlaceholderEnabled = currentText.Length < 1;
         //UpdateValue(parsedNumber, true);
         Value = parsedNumber;
