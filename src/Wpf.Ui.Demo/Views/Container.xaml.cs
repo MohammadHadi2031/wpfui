@@ -63,7 +63,6 @@ public partial class Container : INavigationWindow
 
         // Allows you to use the Dialog control defined in this window in other pages or windows
         dialogService.SetDialogControl(RootDialog);
-
         // !! Experimental option
         //RemoveTitlebar();
 
