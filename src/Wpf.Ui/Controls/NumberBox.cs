@@ -420,14 +420,20 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         if (!decimalRegex.IsMatch(inputText))
             return false;
 
-        if (inputText.Contains(",") && inputText.Substring(inputText.IndexOf(",") + 1).Length > decimalPlaces)
-            return false;
-
-        if (inputText.Contains(".") && inputText.Substring(inputText.IndexOf(".") + 1).Length > decimalPlaces)
-            return false;
-
         return true;
     }
+
+    private int GetDecimalPlaces(string inputText)
+    {
+        if (inputText.Contains(","))
+            return inputText.Substring(inputText.IndexOf(",") + 1).Length;
+
+        if (inputText.Contains("."))
+            return inputText.Substring(inputText.IndexOf(",") + 1).Length;
+
+        return 0;
+    }
+
 
     /// <summary>
     /// Tries to format provided string according to the mask.
@@ -585,8 +591,10 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         //    return;
         //}
 
-        
-        
+        parsedNumber = Math.Round(parsedNumber, DecimalPlaces);
+        var newText = FormatDoubleToString(parsedNumber);
+        Text = newText;
+
         PlaceholderEnabled = currentText.Length < 1;
         //UpdateValue(parsedNumber, true);
         Value = parsedNumber;
