@@ -74,14 +74,28 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
     /// </summary>
     public static readonly DependencyProperty DialogWidthProperty =
         DependencyProperty.Register(nameof(DialogWidth),
-            typeof(double), typeof(Dialog), new PropertyMetadata(420.0));
+            typeof(double), typeof(Dialog), new PropertyMetadata(double.NaN));
 
     /// <summary>
     /// Property for <see cref="DialogHeight"/>.
     /// </summary>
     public static readonly DependencyProperty DialogHeightProperty =
         DependencyProperty.Register(nameof(DialogHeight),
-            typeof(double), typeof(Dialog), new PropertyMetadata(200.0));
+            typeof(double), typeof(Dialog), new PropertyMetadata(double.NaN));
+
+    /// <summary>
+    /// Property for <see cref="DialogMaxWidth"/>.
+    /// </summary>
+    public static readonly DependencyProperty DialogMaxWidthProperty =
+        DependencyProperty.Register(nameof(DialogMaxWidth),
+            typeof(double), typeof(Dialog), new PropertyMetadata(double.PositiveInfinity));
+
+    /// <summary>
+    /// Property for <see cref="DialogMaxHeight"/>.
+    /// </summary>
+    public static readonly DependencyProperty DialogMaxHeightProperty =
+        DependencyProperty.Register(nameof(DialogMaxHeight),
+            typeof(double), typeof(Dialog), new PropertyMetadata(double.PositiveInfinity));
 
     /// <summary>
     /// Property for <see cref="ButtonLeftName"/>.
@@ -191,6 +205,20 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
     {
         get => (int)GetValue(DialogHeightProperty);
         set => SetValue(DialogHeightProperty, value);
+    }
+
+    /// <inheritdoc />
+    public double DialogMaxWidth
+    {
+        get => (int)GetValue(DialogMaxWidthProperty);
+        set => SetValue(DialogMaxWidthProperty, value);
+    }
+
+    /// <inheritdoc />
+    public double DialogMaxHeight
+    {
+        get => (int)GetValue(DialogMaxHeightProperty);
+        set => SetValue(DialogMaxHeightProperty, value);
     }
 
     /// <inheritdoc />

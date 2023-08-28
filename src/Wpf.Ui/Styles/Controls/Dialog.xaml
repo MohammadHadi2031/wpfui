@@ -68,7 +68,7 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
@@ -85,17 +85,17 @@
                                                Text="{TemplateBinding Title}" />
                                 </Border>
 
-                                <ScrollViewer Grid.Row="1"
-                                              Margin="0"
-                                              Padding="24,10,24,10"
-                                              CanContentScroll="{TemplateBinding ScrollViewer.CanContentScroll}"
-                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                              IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
-                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                                <Border Grid.Row="1"
+                                        Margin="0"
+                                        MaxHeight="{TemplateBinding DialogMaxHeight}"
+                                        MaxWidth="{TemplateBinding DialogMaxHeight}"
+                                        Height="{TemplateBinding DialogHeight}"
+                                        Width="{TemplateBinding DialogHeight}"
+                                        Padding="24,10,24,10">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
                                         <TextBlock x:Name="Message"
                                                    Grid.Row="0"
@@ -112,7 +112,7 @@
                                                           VerticalAlignment="Stretch"
                                                           Content="{TemplateBinding ContentControl.Content}" />
                                     </Grid>
-                                </ScrollViewer>
+                                </Border>
 
                                 <Border Grid.Row="2"
                                         CornerRadius="{StaticResource DialogFooterCornerRadius}">
