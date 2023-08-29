@@ -30,9 +30,21 @@ public interface IDialogControl
         Left,
 
         /// <summary>
+        /// Middle button.
+        /// </summary>
+        Middle,
+
+        /// <summary>
         /// Right button.
         /// </summary>
         Right
+    }
+
+    public enum ButtonsVisibility
+    {
+        One,
+        Two,
+        Three,
     }
 
     /// <summary>

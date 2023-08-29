@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls.Interfaces;
 using static Wpf.Ui.Controls.Interfaces.IDialogControl;
@@ -22,6 +23,7 @@ namespace Wpf.Ui.Controls;
 [ToolboxItem(true)]
 [ToolboxBitmap(typeof(Dialog), "Dialog.bmp")]
 [TemplatePart(Name = "PART_FooterButtonLeft", Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
+[TemplatePart(Name = "PART_FooterButtonMiddle", Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
 [TemplatePart(Name = "PART_FooterButtonRight", Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
 public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
 {
@@ -32,11 +34,14 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
     private System.Windows.Controls.Primitives.ButtonBase? _leftFooterButton = null;
 
     private System.Windows.Controls.Primitives.ButtonBase? _rightFooterButton = null;
+    private Grid? _grid;
+    private Button? _middleFooterButton;
 
     /// <summary>
     /// Template element represented by the <c>PART_FooterButtonLeft</c> name.
     /// </summary>
     private const string ElementFooterButtonLeft = "PART_FooterButtonLeft";
+    private const string ElementFooterButtonMiddle = "PART_FooterButtonMiddle";
 
     /// <summary>
     /// Template element represented by the <c>PART_FooterButtonRight</c> name.
@@ -111,6 +116,27 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         nameof(ButtonLeftClick), RoutingStrategy.Bubble, typeof(Dialog), typeof(Dialog));
 
     /// <summary>
+    /// Property for <see cref="ButtonMiddleName"/>.
+    /// </summary>
+    public static readonly DependencyProperty ButtonMiddleNameProperty = DependencyProperty.Register(
+        nameof(ButtonMiddleName),
+        typeof(string), typeof(Dialog), new PropertyMetadata("Middle"));
+
+    /// <summary>
+    /// Routed event for <see cref="ButtonMiddleClick"/>.
+    /// </summary>
+    public static readonly RoutedEvent ButtonMiddleClickEvent = EventManager.RegisterRoutedEvent(
+        nameof(ButtonMiddleClick), RoutingStrategy.Bubble, typeof(Dialog), typeof(Dialog));
+
+    /// <summary>
+    /// Property for <see cref="ButtonMiddleAppearance"/>.
+    /// </summary>
+    public static readonly DependencyProperty ButtonMiddleAppearanceProperty = DependencyProperty.Register(
+        nameof(ButtonMiddleAppearance),
+        typeof(Common.ControlAppearance), typeof(Dialog),
+        new PropertyMetadata(Common.ControlAppearance.Secondary));
+
+    /// <summary>
     /// Property for <see cref="ButtonRightName"/>.
     /// </summary>
     public static readonly DependencyProperty ButtonRightNameProperty = DependencyProperty.Register(
@@ -124,14 +150,6 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         nameof(ButtonLeftAppearance),
         typeof(Common.ControlAppearance), typeof(Dialog),
         new PropertyMetadata(Common.ControlAppearance.Primary));
-
-    /// <summary>
-    /// Property for <see cref="ButtonLeftVisibility"/>.
-    /// </summary>
-    public static readonly DependencyProperty ButtonLeftVisibilityProperty = DependencyProperty.Register(
-        nameof(ButtonLeftVisibility),
-        typeof(System.Windows.Visibility), typeof(Dialog),
-        new PropertyMetadata(System.Windows.Visibility.Visible));
 
     /// <summary>
     /// Routed event for <see cref="ButtonRightClick"/>.
@@ -149,19 +167,16 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         new PropertyMetadata(Common.ControlAppearance.Secondary));
 
     /// <summary>
-    /// Property for <see cref="ButtonRightVisibility"/>.
-    /// </summary>
-    public static readonly DependencyProperty ButtonRightVisibilityProperty = DependencyProperty.Register(
-        nameof(ButtonRightVisibility),
-        typeof(System.Windows.Visibility), typeof(Dialog),
-        new PropertyMetadata(System.Windows.Visibility.Visible));
-
-    /// <summary>
     /// Property for <see cref="TemplateButtonCommand"/>.
     /// </summary>
     public static readonly DependencyProperty TemplateButtonCommandProperty =
         DependencyProperty.Register(nameof(TemplateButtonCommand),
             typeof(Common.IRelayCommand), typeof(Dialog), new PropertyMetadata(null));
+
+    public static readonly DependencyProperty ButtonsVisibilityProperty = DependencyProperty.Register(
+        "ButtonsVisibility",
+        typeof(ButtonsVisibility), typeof(Dialog),
+        new PropertyMetadata(ButtonsVisibility.One, OnButtonsVisibilityChanged));
 
     #endregion Static properties
 
@@ -228,6 +243,13 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         set => SetValue(ButtonLeftNameProperty, value);
     }
 
+    /// <inheritdoc />
+    public string ButtonMiddleName
+    {
+        get => (string)GetValue(ButtonMiddleNameProperty);
+        set => SetValue(ButtonMiddleNameProperty, value);
+    }
+
     /// <summary>
     /// Gets or sets the <see cref="ControlAppearance"/> of the button on the left, if available.
     /// </summary>
@@ -237,21 +259,29 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         set => SetValue(ButtonLeftAppearanceProperty, value);
     }
 
-    /// <summary>
-    /// Gets or sets the visibility of the button on the left.
-    /// </summary>
-    public System.Windows.Visibility ButtonLeftVisibility
-    {
-        get => (System.Windows.Visibility)GetValue(ButtonLeftVisibilityProperty);
-        set => SetValue(ButtonLeftVisibilityProperty, value);
-    }
-
     /// <inheritdoc />
     public event RoutedEventHandler ButtonLeftClick
     {
         add => AddHandler(ButtonLeftClickEvent, value);
         remove => RemoveHandler(ButtonLeftClickEvent, value);
     }
+
+    /// <summary>
+    /// Gets or sets the <see cref="ControlAppearance"/> of the button on the left, if available.
+    /// </summary>
+    public Common.ControlAppearance ButtonMiddleAppearance
+    {
+        get => (Common.ControlAppearance)GetValue(ButtonMiddleAppearanceProperty);
+        set => SetValue(ButtonMiddleAppearanceProperty, value);
+    }
+
+    /// <inheritdoc />
+    public event RoutedEventHandler ButtonMiddleClick
+    {
+        add => AddHandler(ButtonMiddleClickEvent, value);
+        remove => RemoveHandler(ButtonMiddleClickEvent, value);
+    }
+
 
     /// <inheritdoc />
     public string ButtonRightName
@@ -269,20 +299,17 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         set => SetValue(ButtonRightAppearanceProperty, value);
     }
 
-    /// <summary>
-    /// Gets or sets the visibility of the button on the right.
-    /// </summary>
-    public System.Windows.Visibility ButtonRightVisibility
-    {
-        get => (System.Windows.Visibility)GetValue(ButtonRightVisibilityProperty);
-        set => SetValue(ButtonRightVisibilityProperty, value);
-    }
-
     /// <inheritdoc />
     public event RoutedEventHandler ButtonRightClick
     {
         add => AddHandler(ButtonRightClickEvent, value);
         remove => RemoveHandler(ButtonRightClickEvent, value);
+    }
+
+    public ButtonsVisibility ButtonsVisibility
+    {
+        get { return (ButtonsVisibility)GetValue(ButtonsVisibilityProperty); }
+        set { SetValue(ButtonsVisibilityProperty, value); }
     }
 
     /// <summary>
@@ -323,6 +350,71 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
     public Dialog()
     {
         SetValue(TemplateButtonCommandProperty, new Common.RelayCommand(o => OnTemplateButtonClick(this, o)));
+    }
+
+
+    private static void OnButtonsVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is not Dialog dialog)
+        {
+            return;
+        }
+
+        dialog.OnButtonsVisibilityChanged();
+    }
+
+    private void OnButtonsVisibilityChanged()
+    {
+        if (_grid is null)
+        {
+            return;
+        }
+
+        if (_leftFooterButton is null)
+        {
+            return;
+        }
+
+        if (_middleFooterButton is null)
+        {
+            return;
+        }
+
+        if (_rightFooterButton is null)
+        {
+            return;
+        }
+
+        if (ButtonsVisibility == ButtonsVisibility.One)
+        {
+            _leftFooterButton.Visibility = Visibility.Visible;
+            _middleFooterButton.Visibility = Visibility.Collapsed;
+            _rightFooterButton.Visibility = Visibility.Collapsed;
+
+            _grid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+            _grid.ColumnDefinitions[1].Width = GridLength.Auto;
+            _grid.ColumnDefinitions[2].Width = GridLength.Auto;
+        }
+        else if (ButtonsVisibility == ButtonsVisibility.Two)
+        {
+            _leftFooterButton.Visibility = Visibility.Visible;
+            _middleFooterButton.Visibility = Visibility.Collapsed;
+            _rightFooterButton.Visibility = Visibility.Visible;
+
+            _grid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+            _grid.ColumnDefinitions[1].Width = GridLength.Auto;
+            _grid.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+        }
+        else if (ButtonsVisibility == ButtonsVisibility.Three)
+        {
+            _leftFooterButton.Visibility = Visibility.Visible;
+            _middleFooterButton.Visibility = Visibility.Visible;
+            _rightFooterButton.Visibility = Visibility.Visible;
+
+            _grid.ColumnDefinitions[0].Width = new GridLength(1, GridUnitType.Star);
+            _grid.ColumnDefinitions[1].Width = new GridLength(1, GridUnitType.Star);
+            _grid.ColumnDefinitions[2].Width = new GridLength(1, GridUnitType.Star);
+        }
     }
 
     /// <inheritdoc />
@@ -431,6 +523,9 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
 
         if (GetTemplateChild(ElementFooterButtonLeft) is System.Windows.Controls.Primitives.ButtonBase rightButton)
             _rightFooterButton = rightButton;
+
+        _grid = (Grid)GetTemplateChild("FooterButtonsGrid");
+        _middleFooterButton = (Button)GetTemplateChild("PART_FooterButtonMiddle");
     }
 
     /// <summary>
@@ -475,6 +570,13 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
 
                 break;
 
+            case "middle":
+                RaiseEvent(new RoutedEventArgs(ButtonMiddleClickEvent, this));
+
+                _tcs?.TrySetResult(ButtonPressed.Middle);
+
+                break;
+
             case "right":
                 RaiseEvent(new RoutedEventArgs(ButtonRightClickEvent, this));
 
@@ -493,9 +595,14 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
             return;
 
         if (control.IsShown)
+        {
+            control.OnButtonsVisibilityChanged();
             control.OnOpened();
+        }
         else
+        {
             control.OnClosed();
+        }
     }
 
     private void FocusFirstButton()
@@ -503,18 +610,7 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         if (Footer != null)
             return;
 
-        if (ButtonLeftVisibility == Visibility.Visible)
-        {
-            if (_leftFooterButton != null)
-                _leftFooterButton.Focus();
-
-            return;
-        }
-
-        if (ButtonRightVisibility != Visibility.Visible)
-            return;
-
-        if (_rightFooterButton != null)
-            _rightFooterButton.Focus();
+        if (_leftFooterButton != null)
+            _leftFooterButton.Focus();
     }
 }

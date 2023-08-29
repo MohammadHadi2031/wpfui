@@ -126,6 +126,7 @@
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
                                                 <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
                                             <controls:Button x:Name="PART_FooterButtonLeft"
@@ -135,18 +136,25 @@
                                                              Appearance="{TemplateBinding ButtonLeftAppearance}"
                                                              Command="{Binding Path=TemplateButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                                              CommandParameter="left"
-                                                             Content="{TemplateBinding ButtonLeftName}"
-                                                             Visibility="{TemplateBinding ButtonLeftVisibility}" />
+                                                             Content="{TemplateBinding ButtonLeftName}" />
+
+                                            <controls:Button x:Name="PART_FooterButtonMiddle"
+                                                             Grid.Column="1"
+                                                             Margin="4,0,0,0"
+                                                             HorizontalAlignment="Stretch"
+                                                             Appearance="{TemplateBinding ButtonMiddleAppearance}"
+                                                             Command="{Binding Path=TemplateButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                             CommandParameter="middle"
+                                                             Content="{TemplateBinding ButtonMiddleName}" />
 
                                             <controls:Button x:Name="PART_FooterButtonRight"
-                                                             Grid.Column="1"
+                                                             Grid.Column="2"
                                                              Margin="4,0,0,0"
                                                              HorizontalAlignment="Stretch"
                                                              Appearance="{TemplateBinding ButtonRightAppearance}"
                                                              Command="{Binding Path=TemplateButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
                                                              CommandParameter="right"
-                                                             Content="{TemplateBinding ButtonRightName}"
-                                                             Visibility="{TemplateBinding ButtonRightVisibility}" />
+                                                             Content="{TemplateBinding ButtonRightName}" />
                                         </Grid>
                                         <ContentPresenter x:Name="FooterContentPresenter"
                                                           Content="{TemplateBinding Footer}" />
