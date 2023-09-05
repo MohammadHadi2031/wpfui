@@ -100,9 +100,16 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     public static readonly RoutedEvent DecrementedEvent = EventManager.RegisterRoutedEvent(
         nameof(Decremented), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NumberBox));
 
+    public static readonly DependencyProperty HasOutOfRangeErrorProperty = DependencyProperty.Register(nameof(HasOutOfRangeError),
+        typeof(bool), typeof(NumberBox), new PropertyMetadata(false));
+
+    public static readonly DependencyProperty OutOfRangeErrorTemplateProperty = DependencyProperty.Register(nameof(OutOfRangeErrorTemplate),
+        typeof(DataTemplate), typeof(NumberBox), new PropertyMetadata(null));
+
     private string _cachedText = "";
     private bool _isUpdatingTextByCode;
     private double _lastInRangeValue = 0d;
+    private bool _isUpdatingWithInRangeValue;
 
     private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -112,7 +119,6 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         }
 
         numberBox.ValuePropertyChangedCallback(e);
-
     }
 
     private void ValuePropertyChangedCallback(DependencyPropertyChangedEventArgs e)
@@ -224,6 +230,18 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     {
         get => (bool)GetValue(SpinButtonsEnabledProperty);
         set => SetValue(SpinButtonsEnabledProperty, value);
+    }
+
+    public bool HasOutOfRangeError
+    {
+        get { return (bool)GetValue(HasOutOfRangeErrorProperty); }
+        private set { SetValue(HasOutOfRangeErrorProperty, value); }
+    }
+
+    public DataTemplate OutOfRangeErrorTemplate
+    {
+        get { return (DataTemplate)GetValue(OutOfRangeErrorTemplateProperty); }
+        set { SetValue(OutOfRangeErrorTemplateProperty, value); }
     }
 
     /// <summary>
@@ -553,7 +571,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     private void UpdateText()
     {
         var currentText = Text?.Trim();
-
+        
         if (!string.IsNullOrEmpty(currentText) &&
                     !IsNumberTextValid(currentText))
         {
@@ -579,24 +597,37 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             return;
         }
 
-        //if (parsedNumber > Max)
-        //{
-        //    UpdateValue(Max, true);
-        //    return;
-        //}
+        if (parsedNumber > Max)
+        {
+            HasOutOfRangeError = true;
 
-        //if (parsedNumber < Min)
-        //{
-        //    UpdateValue(Min, true);
-        //    return;
-        //}
+            _isUpdatingWithInRangeValue = true;
+            UpdateValue(_lastInRangeValue, true);
+            _isUpdatingWithInRangeValue = false;
+            return;
+        }
+
+        if (parsedNumber < Min)
+        {
+            HasOutOfRangeError = true;
+
+            _isUpdatingWithInRangeValue = true;
+            UpdateValue(_lastInRangeValue, true);
+            _isUpdatingWithInRangeValue = false;
+            return;
+        }
 
         parsedNumber = Math.Round(parsedNumber, DecimalPlaces);
         var newText = FormatDoubleToString(parsedNumber);
         Text = newText;
 
         PlaceholderEnabled = currentText.Length < 1;
-        //UpdateValue(parsedNumber, true);
+       
+        if (!_isUpdatingWithInRangeValue)
+        {
+            HasOutOfRangeError = false;
+        }
+
         Value = parsedNumber;
     }
 
