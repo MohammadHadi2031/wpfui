@@ -613,4 +613,16 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         if (_leftFooterButton != null)
             _leftFooterButton.Focus();
     }
+
+    public void Reset()
+    {
+        ButtonsVisibility = IDialogControl.ButtonsVisibility.Two;
+        Title = "";
+        Message = "";
+        Content = null;
+        DialogWidth = double.NaN;
+        DialogHeight = double.NaN;
+        DialogMaxWidth = double.PositiveInfinity;
+        DialogMaxHeight = double.PositiveInfinity;
+    }
 }
