@@ -108,6 +108,11 @@
                             RecognizesAccessKey="True" />
                     </BulletDecorator>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground"
+                                    Value="{DynamicResource TextFillColorDisabledBrush}" />
+                        </Trigger>
+                        
                         <Trigger Property="Content" Value="{x:Null}">
                             <Setter TargetName="ContentPresenter" Property="Margin" Value="0" />
                         </Trigger>
