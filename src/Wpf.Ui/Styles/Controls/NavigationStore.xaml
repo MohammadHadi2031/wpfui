@@ -287,7 +287,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="{x:Type controls:NavigationStore}">
+    <Style x:Key="NavigationStore" TargetType="{x:Type controls:NavigationStore}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Width" Value="60" />
         <Setter Property="Focusable" Value="False" />
@@ -351,4 +351,6 @@
         </Style.Resources>
     </Style>
 
+    <Style TargetType="{x:Type controls:NavigationStore}"
+           BasedOn="{StaticResource NavigationStore}" />
 </ResourceDictionary>

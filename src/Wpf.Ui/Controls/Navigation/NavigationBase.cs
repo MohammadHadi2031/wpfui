@@ -274,7 +274,7 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
     }
 
     /// <inheritdoc/>
-    public bool Navigate(Type pageType)
+    public virtual bool Navigate(Type pageType)
     {
         return Navigate(pageType, null);
     }
