@@ -1,0 +1,22 @@
+<Project>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <!--<DefineConstants>$(DefineConstants);DEMO</DefineConstants>-->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);DISTANCE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WindowsTargetFrameworks>net6.0-windows</WindowsTargetFrameworks>
+    <CrossPlatformTargetFrameworks>net6.0</CrossPlatformTargetFrameworks>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PolySharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
