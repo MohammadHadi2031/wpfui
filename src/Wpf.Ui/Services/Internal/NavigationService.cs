@@ -489,7 +489,7 @@ internal sealed class NavigationService : IDisposable
 
         // The navigation item is the same, skip the navigation
         if (_currentPageIndex == serviceItemId)
-            return false;
+            return true;
 
         // An empty navigation item may be just a button, but as navigation fails, so return false.
         if (_navigationServiceItems[serviceItemId].Type == null &&

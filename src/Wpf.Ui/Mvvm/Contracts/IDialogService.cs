@@ -3,7 +3,7 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
-using Wpf.Ui.Controls.Interfaces;
+using Wpf.Ui.Controls.Interfaces.Dialogs;
 
 namespace Wpf.Ui.Mvvm.Contracts;
 

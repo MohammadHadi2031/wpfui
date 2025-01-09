@@ -5,10 +5,9 @@
     All Rights Reserved.
 -->
 
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Wpf.Ui.Controls">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Wpf.Ui.Controls">
 
     <Style TargetType="{x:Type controls:MessageBox}">
         <Setter Property="Height" Value="260" />
@@ -43,13 +42,12 @@
                     CaptionHeight removes the white block at the top of the application window.
                     GlassFrameThickness must be at least -1, otherwise the transparency for Mica will not work.
                 -->
-                <WindowChrome
-                    CaptionHeight="1"
-                    CornerRadius="0"
-                    GlassFrameThickness="-1"
-                    NonClientFrameEdges="None"
-                    ResizeBorderThickness="8"
-                    UseAeroCaptionButtons="False" />
+                <WindowChrome CaptionHeight="1"
+                              CornerRadius="0"
+                              GlassFrameThickness="-1"
+                              NonClientFrameEdges="None"
+                              ResizeBorderThickness="8"
+                              UseAeroCaptionButtons="False" />
             </Setter.Value>
         </Setter>
         <Setter Property="Template">
@@ -64,33 +62,29 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
-                                <TextBlock
-                                    x:Name="Title"
-                                    Grid.Row="0"
-                                    Margin="12"
-                                    Text="{TemplateBinding Title}">
+                                <TextBlock x:Name="Title"
+                                           Grid.Row="0"
+                                           Margin="12"
+                                           Text="{TemplateBinding Title}">
                                     <TextBlock.Foreground>
                                         <SolidColorBrush Color="{DynamicResource TextFillColorPrimary}" />
                                     </TextBlock.Foreground>
                                 </TextBlock>
 
-                                <controls:TitleBar
-                                    Grid.Row="0"
-                                    ForceShutdown="False"
-                                    ShowMaximize="False"
-                                    ShowMinimize="False" />
+                                <controls:TitleBar Grid.Row="0"
+                                                   ForceShutdown="False"
+                                                   ShowMaximize="False"
+                                                   ShowMinimize="False" />
 
-                                <ContentPresenter
-                                    x:Name="ContentPresenter"
-                                    Grid.Row="1"
-                                    Margin="{TemplateBinding Padding}" />
+                                <ContentPresenter x:Name="ContentPresenter"
+                                                  Grid.Row="1"
+                                                  Margin="{TemplateBinding Padding}" />
 
                                 <Grid x:Name="FooterGrid" Grid.Row="2">
-                                    <Border
-                                        Padding="{TemplateBinding Padding}"
-                                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                                        BorderThickness="1"
-                                        CornerRadius="0">
+                                    <Border Padding="{TemplateBinding Padding}"
+                                            BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="0">
                                         <Border.Background>
                                             <SolidColorBrush Color="{DynamicResource ControlStrokeColorSecondary}" />
                                         </Border.Background>
@@ -101,23 +95,21 @@
                                                     <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
 
-                                                <controls:Button
-                                                    Grid.Column="0"
-                                                    Margin="0,0,4,0"
-                                                    HorizontalAlignment="Stretch"
-                                                    Appearance="{TemplateBinding ButtonLeftAppearance}"
-                                                    Command="{Binding Path=TemplateButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                                    CommandParameter="left"
-                                                    Content="{TemplateBinding ButtonLeftName}" />
+                                                <controls:Button Grid.Column="0"
+                                                                 Margin="0,0,4,0"
+                                                                 HorizontalAlignment="Stretch"
+                                                                 Appearance="{TemplateBinding ButtonLeftAppearance}"
+                                                                 Command="{Binding Path=TemplateButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 CommandParameter="left"
+                                                                 Content="{TemplateBinding ButtonLeftName}" />
 
-                                                <controls:Button
-                                                    Grid.Column="1"
-                                                    Margin="4,0,0,0"
-                                                    HorizontalAlignment="Stretch"
-                                                    Appearance="{TemplateBinding ButtonRightAppearance}"
-                                                    Command="{Binding Path=TemplateButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                                    CommandParameter="right"
-                                                    Content="{TemplateBinding ButtonRightName}" />
+                                                <controls:Button Grid.Column="1"
+                                                                 Margin="4,0,0,0"
+                                                                 HorizontalAlignment="Stretch"
+                                                                 Appearance="{TemplateBinding ButtonRightAppearance}"
+                                                                 Command="{Binding Path=TemplateButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                                 CommandParameter="right"
+                                                                 Content="{TemplateBinding ButtonRightName}" />
                                             </Grid>
                                             <ContentPresenter x:Name="FooterContentPresenter" Content="{TemplateBinding Footer}" />
                                         </Grid>

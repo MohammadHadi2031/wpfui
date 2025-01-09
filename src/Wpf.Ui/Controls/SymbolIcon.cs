@@ -6,6 +6,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows;
+
 using Wpf.Ui.Extensions;
 
 namespace Wpf.Ui.Controls;

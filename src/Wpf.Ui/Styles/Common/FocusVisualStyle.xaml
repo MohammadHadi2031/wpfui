@@ -11,12 +11,11 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle
-                        RadiusX="4"
-                        RadiusY="4"
-                        SnapsToDevicePixels="True"
-                        Stroke="{DynamicResource KeyboardFocusBorderColorBrush}"
-                        StrokeThickness="1" />
+                    <Rectangle RadiusX="4"
+                               RadiusY="4"
+                               SnapsToDevicePixels="True"
+                               Stroke="{DynamicResource KeyboardFocusBorderColorBrush}"
+                               StrokeThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -5,18 +5,16 @@
     All Rights Reserved.
 -->
 
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Wpf.Ui.Controls"
-    xmlns:converters="clr-namespace:Wpf.Ui.Converters">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Wpf.Ui.Controls"
+                    xmlns:converters="clr-namespace:Wpf.Ui.Converters">
 
     <converters:IconToStringConverter x:Key="IconToStringConverter" />
 
-    <Style
-        x:Key="UiMenuItemScrollViewer"
-        BasedOn="{StaticResource {x:Type ScrollViewer}}"
-        TargetType="{x:Type ScrollViewer}">
+    <Style x:Key="UiMenuItemScrollViewer"
+           BasedOn="{StaticResource {x:Type ScrollViewer}}"
+           TargetType="{x:Type ScrollViewer}">
         <Setter Property="HorizontalScrollBarVisibility" Value="Disabled" />
         <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
     </Style>
@@ -35,12 +33,11 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Separator}">
-                    <Border
-                        Width="{TemplateBinding Width}"
-                        Margin="{TemplateBinding Margin}"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}" />
+                    <Border Width="{TemplateBinding Width}"
+                            Margin="{TemplateBinding Margin}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -48,11 +45,10 @@
 
     <!--  TopLevelHeader  -->
     <ControlTemplate x:Key="{x:Static MenuItem.TopLevelHeaderTemplateKey}" TargetType="{x:Type MenuItem}">
-        <Border
-            x:Name="Border"
-            Margin="4"
-            Background="Transparent"
-            CornerRadius="6">
+        <Border x:Name="Border"
+                Margin="4"
+                Background="Transparent"
+                CornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -64,42 +60,38 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <ContentPresenter
-                        x:Name="Icon"
-                        Grid.Column="0"
-                        Margin="0,0,6,0"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding Icon}" />
-                    <ContentPresenter
-                        x:Name="HeaderPresenter"
-                        Grid.Column="1"
-                        VerticalAlignment="Center"
-                        ContentSource="Header"
-                        RecognizesAccessKey="True"
-                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                    <ContentPresenter x:Name="Icon"
+                                      Grid.Column="0"
+                                      Margin="0,0,6,0"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Icon}" />
+                    <ContentPresenter x:Name="HeaderPresenter"
+                                      Grid.Column="1"
+                                      VerticalAlignment="Center"
+                                      ContentSource="Header"
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}" />
                 </Grid>
 
-                <Popup
-                    x:Name="Popup"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    AllowsTransparency="True"
-                    Focusable="False"
-                    HorizontalOffset="-12"
-                    IsOpen="{TemplateBinding IsSubmenuOpen}"
-                    Placement="Bottom"
-                    PlacementTarget="{Binding ElementName=Border}"
-                    PopupAnimation="Slide"
-                    VerticalOffset="1">
+                <Popup x:Name="Popup"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       HorizontalOffset="-12"
+                       IsOpen="{TemplateBinding IsSubmenuOpen}"
+                       Placement="Bottom"
+                       PlacementTarget="{Binding ElementName=Border}"
+                       PopupAnimation="Slide"
+                       VerticalOffset="1">
                     <Grid>
-                        <Border
-                            x:Name="SubmenuBorder"
-                            Margin="12,0,12,18"
-                            Padding="0,3,0,3"
-                            BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="8"
-                            SnapsToDevicePixels="True">
+                        <Border x:Name="SubmenuBorder"
+                                Margin="12,0,12,18"
+                                Padding="0,3,0,3"
+                                BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
                             <Border.Background>
                                 <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}" />
                             </Border.Background>
@@ -107,11 +99,10 @@
                                 <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                             </ScrollViewer>
                             <Border.Effect>
-                                <DropShadowEffect
-                                    BlurRadius="20"
-                                    Direction="270"
-                                    Opacity="0.25"
-                                    ShadowDepth="6" />
+                                <DropShadowEffect BlurRadius="20"
+                                                  Direction="270"
+                                                  Opacity="0.25"
+                                                  ShadowDepth="6" />
                             </Border.Effect>
                         </Border>
                     </Grid>
@@ -148,29 +139,26 @@
 
     <!--  TopLevelItem  -->
     <ControlTemplate x:Key="{x:Static MenuItem.TopLevelItemTemplateKey}" TargetType="{x:Type MenuItem}">
-        <Border
-            x:Name="Border"
-            Margin="4"
-            Background="Transparent"
-            CornerRadius="6">
+        <Border x:Name="Border"
+                Margin="4"
+                Background="Transparent"
+                CornerRadius="6">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <ContentPresenter
-                    x:Name="Icon"
-                    Grid.Column="0"
-                    Margin="0,0,6,0"
-                    VerticalAlignment="Center"
-                    Content="{TemplateBinding Icon}" />
-                <ContentPresenter
-                    x:Name="HeaderPresenter"
-                    Grid.Column="1"
-                    VerticalAlignment="Center"
-                    ContentSource="Header"
-                    RecognizesAccessKey="True"
-                    TextElement.Foreground="{TemplateBinding Foreground}" />
+                <ContentPresenter x:Name="Icon"
+                                  Grid.Column="0"
+                                  Margin="0,0,6,0"
+                                  VerticalAlignment="Center"
+                                  Content="{TemplateBinding Icon}" />
+                <ContentPresenter x:Name="HeaderPresenter"
+                                  Grid.Column="1"
+                                  VerticalAlignment="Center"
+                                  ContentSource="Header"
+                                  RecognizesAccessKey="True"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
@@ -200,11 +188,10 @@
 
     <!--  SubmenuItem  -->
     <ControlTemplate x:Key="{x:Static MenuItem.SubmenuItemTemplateKey}" TargetType="{x:Type MenuItem}">
-        <Border
-            x:Name="Border"
-            Margin="4,1,4,1"
-            Background="Transparent"
-            CornerRadius="4">
+        <Border x:Name="Border"
+                Margin="4,1,4,1"
+                Background="Transparent"
+                CornerRadius="4">
             <Grid Margin="8,6,8,6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -213,52 +200,47 @@
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
                 </Grid.ColumnDefinitions>
 
-                <Border
-                    x:Name="CheckBoxIconBorder"
-                    Grid.Column="0"
-                    Width="20"
-                    Height="20"
-                    Margin="0,0,6,0"
-                    VerticalAlignment="Center"
-                    BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Visibility="Collapsed">
+                <Border x:Name="CheckBoxIconBorder"
+                        Grid.Column="0"
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,6,0"
+                        VerticalAlignment="Center"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Visibility="Collapsed">
                     <Border.Background>
                         <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
                     </Border.Background>
-                    <TextBlock
-                        x:Name="CheckBoxIcon"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontFamily="{DynamicResource FluentSystemIcons}"
-                        FontSize="16"
-                        Text=""
-                        TextAlignment="Center" />
+                    <TextBlock x:Name="CheckBoxIcon"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontFamily="{DynamicResource FluentSystemIcons}"
+                               FontSize="16"
+                               Text=""
+                               TextAlignment="Center" />
                 </Border>
 
-                <ContentPresenter
-                    x:Name="Icon"
-                    Grid.Column="1"
-                    Margin="0,0,6,0"
-                    VerticalAlignment="Center"
-                    Content="{TemplateBinding Icon}" />
+                <ContentPresenter x:Name="Icon"
+                                  Grid.Column="1"
+                                  Margin="0,0,6,0"
+                                  VerticalAlignment="Center"
+                                  Content="{TemplateBinding Icon}" />
 
-                <ContentPresenter
-                    Grid.Column="2"
-                    ContentSource="Header"
-                    RecognizesAccessKey="True"
-                    TextElement.Foreground="{TemplateBinding Foreground}" />
+                <ContentPresenter Grid.Column="2"
+                                  ContentSource="Header"
+                                  RecognizesAccessKey="True"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" />
 
-                <TextBlock
-                    x:Name="InputGestureText"
-                    Grid.Column="3"
-                    Margin="25,0,0,0"
-                    VerticalAlignment="Bottom"
-                    DockPanel.Dock="Right"
-                    FontSize="11"
-                    Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                    Text="{TemplateBinding InputGestureText}" />
+                <TextBlock x:Name="InputGestureText"
+                           Grid.Column="3"
+                           Margin="25,0,0,0"
+                           VerticalAlignment="Bottom"
+                           DockPanel.Dock="Right"
+                           FontSize="11"
+                           Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                           Text="{TemplateBinding InputGestureText}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
@@ -299,61 +281,55 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Border
-                x:Name="Border"
-                Grid.Row="1"
-                Margin="4,1,4,1"
-                BorderThickness="1"
-                CornerRadius="4">
+            <Border x:Name="Border"
+                    Grid.Row="1"
+                    Margin="4,1,4,1"
+                    BorderThickness="1"
+                    CornerRadius="4">
                 <Grid x:Name="MenuItemContent" Margin="8,6,8,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <ContentPresenter
-                        x:Name="Icon"
-                        Grid.Column="0"
-                        Margin="0,0,6,0"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding Icon}" />
+                    <ContentPresenter x:Name="Icon"
+                                      Grid.Column="0"
+                                      Margin="0,0,6,0"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Icon}" />
 
-                    <ContentPresenter
-                        x:Name="HeaderHost"
-                        Grid.Column="1"
-                        ContentSource="Header"
-                        RecognizesAccessKey="True" />
+                    <ContentPresenter x:Name="HeaderHost"
+                                      Grid.Column="1"
+                                      ContentSource="Header"
+                                      RecognizesAccessKey="True" />
 
                     <Grid Grid.Column="2">
-                        <controls:SymbolIcon
-                            x:Name="Chevron"
-                            Margin="0,3,0,0"
-                            VerticalAlignment="Center"
-                            FontSize="{TemplateBinding FontSize}"
-                            Symbol="ChevronRight20" />
+                        <controls:SymbolIcon x:Name="Chevron"
+                                             Margin="0,3,0,0"
+                                             VerticalAlignment="Center"
+                                             FontSize="{TemplateBinding FontSize}"
+                                             Symbol="ChevronRight20" />
                     </Grid>
                 </Grid>
             </Border>
 
-            <Popup
-                x:Name="Popup"
-                Grid.Row="1"
-                AllowsTransparency="True"
-                Focusable="False"
-                IsOpen="{TemplateBinding IsSubmenuOpen}"
-                Placement="Right"
-                PlacementTarget="{Binding ElementName=MenuItemContent}"
-                PopupAnimation="Slide"
-                VerticalOffset="-20">
+            <Popup x:Name="Popup"
+                   Grid.Row="1"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   IsOpen="{TemplateBinding IsSubmenuOpen}"
+                   Placement="Right"
+                   PlacementTarget="{Binding ElementName=MenuItemContent}"
+                   PopupAnimation="Slide"
+                   VerticalOffset="-20">
                 <Grid>
-                    <Border
-                        x:Name="SubmenuBorder"
-                        Margin="12,10,12,18"
-                        Padding="0,3,0,3"
-                        BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="8"
-                        SnapsToDevicePixels="True">
+                    <Border x:Name="SubmenuBorder"
+                            Margin="12,10,12,18"
+                            Padding="0,3,0,3"
+                            BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
                         <Border.Background>
                             <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}" />
                         </Border.Background>
@@ -361,11 +337,10 @@
                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                         </ScrollViewer>
                         <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="20"
-                                Direction="270"
-                                Opacity="0.5"
-                                ShadowDepth="6" />
+                            <DropShadowEffect BlurRadius="20"
+                                              Direction="270"
+                                              Opacity="0.5"
+                                              ShadowDepth="6" />
                         </Border.Effect>
                     </Border>
                 </Grid>
@@ -424,10 +399,9 @@
         </Style.Triggers>
     </Style>
 
-    <Style
-        x:Key="{x:Type MenuItem}"
-        BasedOn="{StaticResource UiMenuItem}"
-        TargetType="{x:Type MenuItem}" />
+    <Style x:Key="{x:Type MenuItem}"
+           BasedOn="{StaticResource UiMenuItem}"
+           TargetType="{x:Type MenuItem}" />
 
     <!--
         WPF UI MENU ITEM
@@ -435,11 +409,10 @@
 
     <!--  TopLevelHeader  -->
     <ControlTemplate x:Key="WpfUiMenuItemTopLevelHeaderTemplateKey" TargetType="{x:Type controls:MenuItem}">
-        <Border
-            x:Name="Border"
-            Margin="4"
-            Background="Transparent"
-            CornerRadius="6">
+        <Border x:Name="Border"
+                Margin="4"
+                Background="Transparent"
+                CornerRadius="6">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -452,52 +425,47 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <ContentPresenter
-                        x:Name="Icon"
-                        Grid.Column="0"
-                        Margin="0,0,6,0"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding Icon}" />
+                    <ContentPresenter x:Name="Icon"
+                                      Grid.Column="0"
+                                      Margin="0,0,6,0"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Icon}" />
 
-                    <controls:SymbolIcon
-                        x:Name="SymbolIcon"
-                        Grid.Column="1"
-                        Margin="0,0,6,0"
-                        Filled="{TemplateBinding SymbolIconFilled}"
-                        FontSize="{TemplateBinding FontSize}"
-                        Symbol="{TemplateBinding SymbolIcon}" />
+                    <controls:SymbolIcon x:Name="SymbolIcon"
+                                         Grid.Column="1"
+                                         Margin="0,0,6,0"
+                                         Filled="{TemplateBinding SymbolIconFilled}"
+                                         FontSize="{TemplateBinding FontSize}"
+                                         Symbol="{TemplateBinding SymbolIcon}" />
 
-                    <ContentPresenter
-                        x:Name="HeaderPresenter"
-                        Grid.Column="2"
-                        VerticalAlignment="Center"
-                        ContentSource="Header"
-                        RecognizesAccessKey="True"
-                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                    <ContentPresenter x:Name="HeaderPresenter"
+                                      Grid.Column="2"
+                                      VerticalAlignment="Center"
+                                      ContentSource="Header"
+                                      RecognizesAccessKey="True"
+                                      TextElement.Foreground="{TemplateBinding Foreground}" />
                 </Grid>
 
-                <Popup
-                    x:Name="Popup"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    AllowsTransparency="True"
-                    Focusable="False"
-                    HorizontalOffset="-12"
-                    IsOpen="{TemplateBinding IsSubmenuOpen}"
-                    Placement="Bottom"
-                    PlacementTarget="{Binding ElementName=Border}"
-                    PopupAnimation="Slide"
-                    VerticalOffset="1">
+                <Popup x:Name="Popup"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       HorizontalOffset="-12"
+                       IsOpen="{TemplateBinding IsSubmenuOpen}"
+                       Placement="Bottom"
+                       PlacementTarget="{Binding ElementName=Border}"
+                       PopupAnimation="Slide"
+                       VerticalOffset="1">
                     <Grid>
-                        <Border
-                            x:Name="SubmenuBorder"
-                            Margin="12,0,12,18"
-                            Padding="0,3,0,3"
-                            BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="8"
-                            SnapsToDevicePixels="True">
+                        <Border x:Name="SubmenuBorder"
+                                Margin="12,0,12,18"
+                                Padding="0,3,0,3"
+                                BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
                             <Border.Background>
                                 <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}" />
                             </Border.Background>
@@ -505,11 +473,10 @@
                                 <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                             </ScrollViewer>
                             <Border.Effect>
-                                <DropShadowEffect
-                                    BlurRadius="20"
-                                    Direction="270"
-                                    Opacity="0.25"
-                                    ShadowDepth="6" />
+                                <DropShadowEffect BlurRadius="20"
+                                                  Direction="270"
+                                                  Opacity="0.25"
+                                                  ShadowDepth="6" />
                             </Border.Effect>
                         </Border>
                     </Grid>
@@ -551,11 +518,10 @@
 
     <!--  TopLevelItem  -->
     <ControlTemplate x:Key="WpfUiMenuItemTopLevelItemTemplateKey" TargetType="{x:Type controls:MenuItem}">
-        <Border
-            x:Name="Border"
-            Margin="4"
-            Background="Transparent"
-            CornerRadius="6">
+        <Border x:Name="Border"
+                Margin="4"
+                Background="Transparent"
+                CornerRadius="6">
             <Grid Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -563,28 +529,25 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <ContentPresenter
-                    x:Name="Icon"
-                    Grid.Column="0"
-                    Margin="0,0,6,0"
-                    VerticalAlignment="Center"
-                    Content="{TemplateBinding Icon}" />
+                <ContentPresenter x:Name="Icon"
+                                  Grid.Column="0"
+                                  Margin="0,0,6,0"
+                                  VerticalAlignment="Center"
+                                  Content="{TemplateBinding Icon}" />
 
-                <controls:SymbolIcon
-                    x:Name="SymbolIcon"
-                    Grid.Column="1"
-                    Margin="0,0,6,0"
-                    Filled="{TemplateBinding SymbolIconFilled}"
-                    FontSize="{TemplateBinding FontSize}"
-                    Symbol="{TemplateBinding SymbolIcon}" />
+                <controls:SymbolIcon x:Name="SymbolIcon"
+                                     Grid.Column="1"
+                                     Margin="0,0,6,0"
+                                     Filled="{TemplateBinding SymbolIconFilled}"
+                                     FontSize="{TemplateBinding FontSize}"
+                                     Symbol="{TemplateBinding SymbolIcon}" />
 
-                <ContentPresenter
-                    x:Name="HeaderPresenter"
-                    Grid.Column="2"
-                    VerticalAlignment="Center"
-                    ContentSource="Header"
-                    RecognizesAccessKey="True"
-                    TextElement.Foreground="{TemplateBinding Foreground}" />
+                <ContentPresenter x:Name="HeaderPresenter"
+                                  Grid.Column="2"
+                                  VerticalAlignment="Center"
+                                  ContentSource="Header"
+                                  RecognizesAccessKey="True"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
@@ -619,11 +582,10 @@
 
     <!--  SubmenuItem  -->
     <ControlTemplate x:Key="WpfUiMenuItemSubmenuItemTemplateKey" TargetType="{x:Type controls:MenuItem}">
-        <Border
-            x:Name="Border"
-            Margin="4,1,4,1"
-            Background="Transparent"
-            CornerRadius="4">
+        <Border x:Name="Border"
+                Margin="4,1,4,1"
+                Background="Transparent"
+                CornerRadius="4">
             <Grid Margin="8,6,8,6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -633,60 +595,54 @@
                     <ColumnDefinition Width="Auto" SharedSizeGroup="Shortcut" />
                 </Grid.ColumnDefinitions>
 
-                <Border
-                    x:Name="CheckBoxIconBorder"
-                    Grid.Column="0"
-                    Width="20"
-                    Height="20"
-                    Margin="0"
-                    VerticalAlignment="Center"
-                    BorderBrush="{DynamicResource ControlElevationBorderBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Visibility="Collapsed">
+                <Border x:Name="CheckBoxIconBorder"
+                        Grid.Column="0"
+                        Width="20"
+                        Height="20"
+                        Margin="0"
+                        VerticalAlignment="Center"
+                        BorderBrush="{DynamicResource ControlElevationBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Visibility="Collapsed">
                     <Border.Background>
                         <SolidColorBrush Color="{DynamicResource ControlFillColorDefault}" />
                     </Border.Background>
-                    <TextBlock
-                        x:Name="CheckBoxIcon"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        FontFamily="{DynamicResource FluentSystemIcons}"
-                        FontSize="16"
-                        Text=""
-                        TextAlignment="Center" />
+                    <TextBlock x:Name="CheckBoxIcon"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontFamily="{DynamicResource FluentSystemIcons}"
+                               FontSize="16"
+                               Text=""
+                               TextAlignment="Center" />
                 </Border>
 
-                <ContentPresenter
-                    x:Name="Icon"
-                    Grid.Column="1"
-                    Margin="0,0,6,0"
-                    VerticalAlignment="Center"
-                    Content="{TemplateBinding Icon}" />
+                <ContentPresenter x:Name="Icon"
+                                  Grid.Column="1"
+                                  Margin="0,0,6,0"
+                                  VerticalAlignment="Center"
+                                  Content="{TemplateBinding Icon}" />
 
-                <controls:SymbolIcon
-                    x:Name="SymbolIcon"
-                    Grid.Column="2"
-                    Margin="0,0,6,0"
-                    Filled="{TemplateBinding SymbolIconFilled}"
-                    FontSize="16"
-                    Symbol="{TemplateBinding SymbolIcon}" />
+                <controls:SymbolIcon x:Name="SymbolIcon"
+                                     Grid.Column="2"
+                                     Margin="0,0,6,0"
+                                     Filled="{TemplateBinding SymbolIconFilled}"
+                                     FontSize="16"
+                                     Symbol="{TemplateBinding SymbolIcon}" />
 
-                <ContentPresenter
-                    Grid.Column="3"
-                    ContentSource="Header"
-                    RecognizesAccessKey="True"
-                    TextElement.Foreground="{TemplateBinding Foreground}" />
+                <ContentPresenter Grid.Column="3"
+                                  ContentSource="Header"
+                                  RecognizesAccessKey="True"
+                                  TextElement.Foreground="{TemplateBinding Foreground}" />
 
-                <TextBlock
-                    x:Name="InputGestureText"
-                    Grid.Column="4"
-                    Margin="25,0,0,0"
-                    VerticalAlignment="Bottom"
-                    DockPanel.Dock="Right"
-                    FontSize="11"
-                    Foreground="{DynamicResource TextFillColorDisabledBrush}"
-                    Text="{TemplateBinding InputGestureText}" />
+                <TextBlock x:Name="InputGestureText"
+                           Grid.Column="4"
+                           Margin="25,0,0,0"
+                           VerticalAlignment="Bottom"
+                           DockPanel.Dock="Right"
+                           FontSize="11"
+                           Foreground="{DynamicResource TextFillColorDisabledBrush}"
+                           Text="{TemplateBinding InputGestureText}" />
             </Grid>
         </Border>
         <ControlTemplate.Triggers>
@@ -732,12 +688,11 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Border
-                x:Name="Border"
-                Grid.Row="1"
-                Margin="4,1,4,1"
-                BorderThickness="1"
-                CornerRadius="4">
+            <Border x:Name="Border"
+                    Grid.Row="1"
+                    Margin="4,1,4,1"
+                    BorderThickness="1"
+                    CornerRadius="4">
                 <Grid x:Name="MenuItemContent" Margin="8,6,8,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -746,57 +701,51 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ContentPresenter
-                        x:Name="Icon"
-                        Grid.Column="0"
-                        Margin="0,0,6,0"
-                        VerticalAlignment="Center"
-                        Content="{TemplateBinding Icon}" />
+                    <ContentPresenter x:Name="Icon"
+                                      Grid.Column="0"
+                                      Margin="0,0,6,0"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Icon}" />
 
-                    <controls:SymbolIcon
-                        x:Name="SymbolIcon"
-                        Grid.Column="1"
-                        Margin="0,0,6,0"
-                        Filled="{TemplateBinding SymbolIconFilled}"
-                        FontSize="16"
-                        Symbol="{TemplateBinding SymbolIcon}" />
+                    <controls:SymbolIcon x:Name="SymbolIcon"
+                                         Grid.Column="1"
+                                         Margin="0,0,6,0"
+                                         Filled="{TemplateBinding SymbolIconFilled}"
+                                         FontSize="16"
+                                         Symbol="{TemplateBinding SymbolIcon}" />
 
-                    <ContentPresenter
-                        x:Name="HeaderHost"
-                        Grid.Column="2"
-                        ContentSource="Header"
-                        RecognizesAccessKey="True" />
+                    <ContentPresenter x:Name="HeaderHost"
+                                      Grid.Column="2"
+                                      ContentSource="Header"
+                                      RecognizesAccessKey="True" />
 
                     <Grid Grid.Column="3">
-                        <controls:SymbolIcon
-                            x:Name="Chevron"
-                            Margin="0,3,0,0"
-                            VerticalAlignment="Center"
-                            FontSize="14"
-                            Symbol="ChevronRight20" />
+                        <controls:SymbolIcon x:Name="Chevron"
+                                             Margin="0,3,0,0"
+                                             VerticalAlignment="Center"
+                                             FontSize="14"
+                                             Symbol="ChevronRight20" />
                     </Grid>
                 </Grid>
             </Border>
 
-            <Popup
-                x:Name="Popup"
-                Grid.Row="1"
-                AllowsTransparency="True"
-                Focusable="False"
-                IsOpen="{TemplateBinding IsSubmenuOpen}"
-                Placement="Right"
-                PlacementTarget="{Binding ElementName=MenuItemContent}"
-                PopupAnimation="Slide"
-                VerticalOffset="-20">
+            <Popup x:Name="Popup"
+                   Grid.Row="1"
+                   AllowsTransparency="True"
+                   Focusable="False"
+                   IsOpen="{TemplateBinding IsSubmenuOpen}"
+                   Placement="Right"
+                   PlacementTarget="{Binding ElementName=MenuItemContent}"
+                   PopupAnimation="Slide"
+                   VerticalOffset="-20">
                 <Grid>
-                    <Border
-                        x:Name="SubmenuBorder"
-                        Margin="12,10,12,18"
-                        Padding="0,3,0,3"
-                        BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="8"
-                        SnapsToDevicePixels="True">
+                    <Border x:Name="SubmenuBorder"
+                            Margin="12,10,12,18"
+                            Padding="0,3,0,3"
+                            BorderBrush="{DynamicResource MenuBorderColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
                         <Border.Background>
                             <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}" />
                         </Border.Background>
@@ -804,11 +753,10 @@
                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                         </ScrollViewer>
                         <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="20"
-                                Direction="270"
-                                Opacity="0.5"
-                                ShadowDepth="6" />
+                            <DropShadowEffect BlurRadius="20"
+                                              Direction="270"
+                                              Opacity="0.5"
+                                              ShadowDepth="6" />
                         </Border.Effect>
                     </Border>
                 </Grid>

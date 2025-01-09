@@ -5,12 +5,11 @@
     All Rights Reserved.
 -->
 
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="clr-namespace:Wpf.Ui.Common"
-    xmlns:controls="clr-namespace:Wpf.Ui.Controls"
-    xmlns:navigation="clr-namespace:Wpf.Ui.Controls.Navigation">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:common="clr-namespace:Wpf.Ui.Common"
+                    xmlns:controls="clr-namespace:Wpf.Ui.Controls"
+                    xmlns:navigation="clr-namespace:Wpf.Ui.Controls.Navigation">
 
     <Style x:Key="NavigationStoreHeader" TargetType="{x:Type navigation:NavigationHeader}">
         <Setter Property="Foreground">
@@ -35,28 +34,25 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type navigation:NavigationHeader}">
-                    <Grid
-                        Margin="{TemplateBinding Margin}"
-                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                        VerticalAlignment="{TemplateBinding VerticalAlignment}">
+                    <Grid Margin="{TemplateBinding Margin}"
+                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalAlignment}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <controls:SymbolIcon
-                            x:Name="SymbolIcon"
-                            Grid.Column="0"
-                            Margin="0,0,4,0"
-                            VerticalAlignment="Center"
-                            Filled="{TemplateBinding IconFilled}"
-                            FontSize="{TemplateBinding IconSize}"
-                            Foreground="{TemplateBinding IconForeground}"
-                            Symbol="{TemplateBinding Icon}" />
-                        <TextBlock
-                            Grid.Column="1"
-                            FontSize="{TemplateBinding FontSize}"
-                            Foreground="{TemplateBinding Foreground}"
-                            Text="{TemplateBinding Text}" />
+                        <controls:SymbolIcon x:Name="SymbolIcon"
+                                             Grid.Column="0"
+                                             Margin="0,0,4,0"
+                                             VerticalAlignment="Center"
+                                             Filled="{TemplateBinding IconFilled}"
+                                             FontSize="{TemplateBinding IconSize}"
+                                             Foreground="{TemplateBinding IconForeground}"
+                                             Symbol="{TemplateBinding Icon}" />
+                        <TextBlock Grid.Column="1"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Text="{TemplateBinding Text}" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Icon" Value="Empty">
@@ -106,25 +102,23 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:NavigationItem}">
-                    <Border
-                        x:Name="MainBorder"
-                        Padding="4"
-                        HorizontalAlignment="Stretch"
-                        Background="Transparent"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
+                    <Border x:Name="MainBorder"
+                            Padding="4"
+                            HorizontalAlignment="Stretch"
+                            Background="Transparent"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
                         <Grid>
-                            <Rectangle
-                                x:Name="ActiveRectangle"
-                                Width="4"
-                                Height="24"
-                                Margin="-4,0,0,0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Opacity="0.0"
-                                RadiusX="2"
-                                RadiusY="2">
+                            <Rectangle x:Name="ActiveRectangle"
+                                       Width="4"
+                                       Height="24"
+                                       Margin="-4,0,0,0"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Opacity="0.0"
+                                       RadiusX="2"
+                                       RadiusY="2">
                                 <Rectangle.Fill>
                                     <SolidColorBrush Color="{DynamicResource SystemAccentColorSecondary}" />
                                 </Rectangle.Fill>
@@ -134,33 +128,29 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <controls:SymbolIcon
-                                    x:Name="ElementIcon"
-                                    Grid.Row="0"
-                                    Margin="0"
-                                    FontSize="{TemplateBinding IconSize}"
-                                    Foreground="{TemplateBinding IconForeground}"
-                                    Symbol="{TemplateBinding Icon}" />
+                                <controls:SymbolIcon x:Name="ElementIcon"
+                                                     Grid.Row="0"
+                                                     Margin="0"
+                                                     FontSize="{TemplateBinding IconSize}"
+                                                     Foreground="{TemplateBinding IconForeground}"
+                                                     Symbol="{TemplateBinding Icon}" />
 
-                                <Image
-                                    x:Name="ElementImage"
-                                    Grid.Row="0"
-                                    Width="24"
-                                    Margin="0"
-                                    RenderOptions.BitmapScalingMode="HighQuality"
-                                    Source="{TemplateBinding Image}" />
+                                <Image x:Name="ElementImage"
+                                       Grid.Row="0"
+                                       Width="24"
+                                       Margin="0"
+                                       RenderOptions.BitmapScalingMode="HighQuality"
+                                       Source="{TemplateBinding Image}" />
 
-                                <Grid
-                                    x:Name="ContentGrid"
-                                    Grid.Row="1"
-                                    Height="15"
-                                    Margin="0,2,0,0">
-                                    <ContentPresenter
-                                        x:Name="ElementContentPresenter"
-                                        HorizontalAlignment="Center"
-                                        Content="{TemplateBinding Content}"
-                                        TextElement.FontSize="10"
-                                        TextElement.Foreground="{TemplateBinding Foreground}" />
+                                <Grid x:Name="ContentGrid"
+                                      Grid.Row="1"
+                                      Height="15"
+                                      Margin="0,2,0,0">
+                                    <ContentPresenter x:Name="ElementContentPresenter"
+                                                      HorizontalAlignment="Center"
+                                                      Content="{TemplateBinding Content}"
+                                                      TextElement.FontSize="10"
+                                                      TextElement.Foreground="{TemplateBinding Foreground}" />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -184,48 +174,42 @@
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="ContentGrid"
-                                            Storyboard.TargetProperty="Height"
-                                            From="15"
-                                            To="0"
-                                            Duration="0:0:.16" />
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="ContentGrid"
-                                            Storyboard.TargetProperty="Opacity"
-                                            From="1"
-                                            To="0"
-                                            Duration="0:0:.16" />
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Opacity)"
-                                            From="0"
-                                            To="1"
-                                            Duration="0:0:.16" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentGrid"
+                                                         Storyboard.TargetProperty="Height"
+                                                         From="15"
+                                                         To="0"
+                                                         Duration="0:0:.16" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentGrid"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="0:0:.16" />
+                                        <DoubleAnimation Storyboard.TargetName="MainBorder"
+                                                         Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Opacity)"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:.16" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
                             <Trigger.ExitActions>
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="ContentGrid"
-                                            Storyboard.TargetProperty="Height"
-                                            From="0"
-                                            To="15"
-                                            Duration="0:0:.16" />
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="ContentGrid"
-                                            Storyboard.TargetProperty="Opacity"
-                                            From="0"
-                                            To="1"
-                                            Duration="0:0:.16" />
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="MainBorder"
-                                            Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Opacity)"
-                                            From="1"
-                                            To="0"
-                                            Duration="0:0:.16" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentGrid"
+                                                         Storyboard.TargetProperty="Height"
+                                                         From="0"
+                                                         To="15"
+                                                         Duration="0:0:.16" />
+                                        <DoubleAnimation Storyboard.TargetName="ContentGrid"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="0:0:.16" />
+                                        <DoubleAnimation Storyboard.TargetName="MainBorder"
+                                                         Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Opacity)"
+                                                         From="1"
+                                                         To="0"
+                                                         Duration="0:0:.16" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
@@ -296,47 +280,42 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:NavigationStore}">
-                    <controls:DynamicScrollViewer
-                        Margin="0"
-                        Padding="0"
-                        HorizontalScrollBarVisibility="Disabled">
+                    <controls:DynamicScrollViewer Margin="0"
+                                                  Padding="0"
+                                                  HorizontalScrollBarVisibility="Disabled">
                         <Grid HorizontalAlignment="Left">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <ItemsControl
-                                Grid.Row="0"
-                                Width="250"
-                                Focusable="False"
-                                ItemsSource="{TemplateBinding Items}"
-                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <ItemsControl Grid.Row="0"
+                                          Width="250"
+                                          Focusable="False"
+                                          ItemsSource="{TemplateBinding Items}"
+                                          KeyboardNavigation.DirectionalNavigation="Contained"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel
-                                            MinWidth="0"
-                                            Margin="0"
-                                            HorizontalAlignment="Left" />
+                                        <StackPanel MinWidth="0"
+                                                    Margin="0"
+                                                    HorizontalAlignment="Left" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
 
-                            <ItemsControl
-                                Grid.Row="1"
-                                Focusable="False"
-                                ItemsSource="{TemplateBinding Footer}"
-                                KeyboardNavigation.DirectionalNavigation="Contained"
-                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                            <ItemsControl Grid.Row="1"
+                                          Focusable="False"
+                                          ItemsSource="{TemplateBinding Footer}"
+                                          KeyboardNavigation.DirectionalNavigation="Contained"
+                                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                          ScrollViewer.VerticalScrollBarVisibility="Disabled">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel
-                                            MinWidth="0"
-                                            Margin="0"
-                                            HorizontalAlignment="Left" />
+                                        <StackPanel MinWidth="0"
+                                                    Margin="0"
+                                                    HorizontalAlignment="Left" />
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
@@ -351,6 +330,5 @@
         </Style.Resources>
     </Style>
 
-    <Style TargetType="{x:Type controls:NavigationStore}"
-           BasedOn="{StaticResource NavigationStore}" />
+    <Style BasedOn="{StaticResource NavigationStore}" TargetType="{x:Type controls:NavigationStore}" />
 </ResourceDictionary>

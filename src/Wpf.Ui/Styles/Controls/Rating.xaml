@@ -5,10 +5,9 @@
     All Rights Reserved.
 -->
 
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Wpf.Ui.Controls">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Wpf.Ui.Controls">
 
     <Style TargetType="{x:Type controls:Rating}">
         <Setter Property="Foreground">
@@ -41,43 +40,37 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <controls:SymbolIcon
-                                x:Name="Star1"
-                                Grid.Column="0"
-                                FontSize="{TemplateBinding FontSize}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Symbol="{TemplateBinding Icon}" />
-                            <controls:SymbolIcon
-                                x:Name="Star2"
-                                Grid.Column="1"
-                                FontSize="{TemplateBinding FontSize}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Symbol="{TemplateBinding Icon}" />
-                            <controls:SymbolIcon
-                                x:Name="Star3"
-                                Grid.Column="2"
-                                FontSize="{TemplateBinding FontSize}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Symbol="{TemplateBinding Icon}" />
-                            <controls:SymbolIcon
-                                x:Name="Star4"
-                                Grid.Column="3"
-                                FontSize="{TemplateBinding FontSize}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Symbol="{TemplateBinding Icon}" />
-                            <controls:SymbolIcon
-                                x:Name="Star5"
-                                Grid.Column="4"
-                                FontSize="{TemplateBinding FontSize}"
-                                Foreground="{TemplateBinding Foreground}"
-                                Symbol="{TemplateBinding Icon}" />
+                            <controls:SymbolIcon x:Name="Star1"
+                                                 Grid.Column="0"
+                                                 FontSize="{TemplateBinding FontSize}"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 Symbol="{TemplateBinding Icon}" />
+                            <controls:SymbolIcon x:Name="Star2"
+                                                 Grid.Column="1"
+                                                 FontSize="{TemplateBinding FontSize}"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 Symbol="{TemplateBinding Icon}" />
+                            <controls:SymbolIcon x:Name="Star3"
+                                                 Grid.Column="2"
+                                                 FontSize="{TemplateBinding FontSize}"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 Symbol="{TemplateBinding Icon}" />
+                            <controls:SymbolIcon x:Name="Star4"
+                                                 Grid.Column="3"
+                                                 FontSize="{TemplateBinding FontSize}"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 Symbol="{TemplateBinding Icon}" />
+                            <controls:SymbolIcon x:Name="Star5"
+                                                 Grid.Column="4"
+                                                 FontSize="{TemplateBinding FontSize}"
+                                                 Foreground="{TemplateBinding Foreground}"
+                                                 Symbol="{TemplateBinding Icon}" />
                         </Grid>
 
-                        <Grid
-                            x:Name="ContentGrid"
-                            Grid.Column="1"
-                            Margin="8,0,0,0"
-                            VerticalAlignment="Center">
+                        <Grid x:Name="ContentGrid"
+                              Grid.Column="1"
+                              Margin="8,0,0,0"
+                              VerticalAlignment="Center">
                             <ContentPresenter TextElement.FontSize="13" TextElement.Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
                         </Grid>
                     </Grid>

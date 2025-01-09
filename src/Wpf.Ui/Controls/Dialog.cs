@@ -7,13 +7,16 @@
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+
 using Wpf.Ui.Common;
-using Wpf.Ui.Controls.Interfaces;
-using static Wpf.Ui.Controls.Interfaces.IDialogControl;
+using Wpf.Ui.Controls.Interfaces.Dialogs;
+using static Wpf.Ui.Controls.Interfaces.Dialogs.IDialogControl;
+
 
 namespace Wpf.Ui.Controls;
 
@@ -21,11 +24,11 @@ namespace Wpf.Ui.Controls;
 /// Displays a large card with a slightly transparent background and two action buttons.
 /// </summary>
 [ToolboxItem(true)]
-[ToolboxBitmap(typeof(Dialog), "Dialog.bmp")]
-[TemplatePart(Name = "PART_FooterButtonLeft", Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
-[TemplatePart(Name = "PART_FooterButtonMiddle", Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
-[TemplatePart(Name = "PART_FooterButtonRight", Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
-public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
+[System.Drawing.ToolboxBitmap(typeof(Dialog), "Dialog.bmp")]
+[TemplatePart(Name = ElementFooterButtonLeft, Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
+[TemplatePart(Name = ElementFooterButtonMiddle, Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
+[TemplatePart(Name = ElementFooterButtonRight, Type = typeof(System.Windows.Controls.Primitives.ButtonBase))]
+public class Dialog : ContentControl, IDialogControl
 {
     private TaskCompletionSource<ButtonPressed>? _tcs = null;
 
@@ -178,6 +181,11 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         typeof(ButtonsVisibility), typeof(Dialog),
         new PropertyMetadata(ButtonsVisibility.One, OnButtonsVisibilityChanged));
 
+    public static readonly DependencyProperty ContentBackgroundProperty = DependencyProperty.Register(
+        nameof(ContentBackground), typeof(Brush), typeof(Dialog), new FrameworkPropertyMetadata(
+                        Panel.BackgroundProperty.DefaultMetadata.DefaultValue,
+                        FrameworkPropertyMetadataOptions.None));
+
     #endregion Static properties
 
     /// <inheritdoc />
@@ -211,28 +219,28 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
     /// <inheritdoc />
     public double DialogWidth
     {
-        get => (int)GetValue(DialogWidthProperty);
+        get => (double)GetValue(DialogWidthProperty);
         set => SetValue(DialogWidthProperty, value);
     }
 
     /// <inheritdoc />
     public double DialogHeight
     {
-        get => (int)GetValue(DialogHeightProperty);
+        get => (double)GetValue(DialogHeightProperty);
         set => SetValue(DialogHeightProperty, value);
     }
 
     /// <inheritdoc />
     public double DialogMaxWidth
     {
-        get => (int)GetValue(DialogMaxWidthProperty);
+        get => (double)GetValue(DialogMaxWidthProperty);
         set => SetValue(DialogMaxWidthProperty, value);
     }
 
     /// <inheritdoc />
     public double DialogMaxHeight
     {
-        get => (int)GetValue(DialogMaxHeightProperty);
+        get => (double)GetValue(DialogMaxHeightProperty);
         set => SetValue(DialogMaxHeightProperty, value);
     }
 
@@ -312,11 +320,19 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         set { SetValue(ButtonsVisibilityProperty, value); }
     }
 
+    public Brush ContentBackground
+    {
+        get { return (Brush)GetValue(ContentBackgroundProperty); }
+        set { SetValue(ContentBackgroundProperty, value); }
+    }
+
     /// <summary>
     /// Command triggered after clicking the button in the template.
     /// </summary>
     public Common.IRelayCommand TemplateButtonCommand =>
         (Common.IRelayCommand)GetValue(TemplateButtonCommandProperty);
+
+    public ButtonsOptions MainButton { get; set; } = ButtonsOptions.left;
 
     /// <summary>
     /// Event triggered when <see cref="Dialog"/> opens.
@@ -350,8 +366,22 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
     public Dialog()
     {
         SetValue(TemplateButtonCommandProperty, new Common.RelayCommand(o => OnTemplateButtonClick(this, o)));
+        this.KeyDown += (s, e) => { Dialog_PreviewKeyDown(s, e); };
     }
 
+    private void Dialog_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            ClickButton(MainButton);
+            e.Handled = true;
+        }
+        else if (e.Key == Key.Escape)
+        {
+            _tcs?.TrySetResult(ButtonPressed.None);
+            e.Handled = true;
+        }
+    }
 
     private static void OnButtonsVisibilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -521,11 +551,11 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         if (GetTemplateChild(ElementFooterButtonLeft) is System.Windows.Controls.Primitives.ButtonBase leftButton)
             _leftFooterButton = leftButton;
 
-        if (GetTemplateChild(ElementFooterButtonLeft) is System.Windows.Controls.Primitives.ButtonBase rightButton)
+        if (GetTemplateChild(ElementFooterButtonRight) is System.Windows.Controls.Primitives.ButtonBase rightButton)
             _rightFooterButton = rightButton;
 
         _grid = (Grid)GetTemplateChild("FooterButtonsGrid");
-        _middleFooterButton = (Button)GetTemplateChild("PART_FooterButtonMiddle");
+        _middleFooterButton = (Button)GetTemplateChild(ElementFooterButtonMiddle);
     }
 
     /// <summary>
@@ -624,5 +654,11 @@ public class Dialog : System.Windows.Controls.ContentControl, IDialogControl
         DialogHeight = double.NaN;
         DialogMaxWidth = double.PositiveInfinity;
         DialogMaxHeight = double.PositiveInfinity;
+        ContentBackground = Brushes.Transparent;
+    }
+
+    private void ClickButton(ButtonsOptions mainButton)
+    {
+        OnTemplateButtonClick(this, mainButton.ToString());
     }
 }

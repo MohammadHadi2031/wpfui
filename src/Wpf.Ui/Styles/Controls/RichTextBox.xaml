@@ -36,21 +36,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RichTextBox}">
-                    <Border
-                        x:Name="MainBorder"
-                        Padding="0"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="4">
-                        <ScrollViewer
-                            x:Name="PART_ContentHost"
-                            Margin="0,0,2,0"
-                            Padding="{TemplateBinding Padding}"
-                            VerticalAlignment="Top"
-                            Foreground="{TemplateBinding Foreground}"
-                            HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
-                            VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" />
+                    <Border x:Name="MainBorder"
+                            Padding="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Margin="0,0,2,0"
+                                      Padding="{TemplateBinding Padding}"
+                                      VerticalAlignment="Top"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      HorizontalScrollBarVisibility="{TemplateBinding HorizontalScrollBarVisibility}"
+                                      VerticalScrollBarVisibility="{TemplateBinding VerticalScrollBarVisibility}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>

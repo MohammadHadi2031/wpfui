@@ -9,8 +9,10 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls.Interfaces;
+
 using Brush = System.Windows.Media.Brush;
 using SystemColors = System.Windows.SystemColors;
 

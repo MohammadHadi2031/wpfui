@@ -38,29 +38,26 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToolTip">
-                    <Border
-                        Name="Border"
-                        Width="{TemplateBinding Width}"
-                        Height="{TemplateBinding Height}"
-                        MaxWidth="{TemplateBinding MaxWidth}"
-                        Padding="8"
-                        Background="{TemplateBinding Background}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4"
-                        SnapsToDevicePixels="True">
+                    <Border Name="Border"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"
+                            MaxWidth="{TemplateBinding MaxWidth}"
+                            Padding="8"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            SnapsToDevicePixels="True">
                         <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="30"
-                                Direction="0"
-                                Opacity="0.4"
-                                ShadowDepth="0"
-                                Color="#202020" />
+                            <DropShadowEffect BlurRadius="30"
+                                              Direction="0"
+                                              Opacity="0.4"
+                                              ShadowDepth="0"
+                                              Color="#202020" />
                         </Border.Effect>
-                        <ContentPresenter
-                            Margin="4"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top">
+                        <ContentPresenter Margin="4"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Top">
                             <ContentPresenter.Resources>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="TextWrapping" Value="WrapWithOverflow" />

@@ -1,0 +1,226 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Wpf.Ui.Controls"
+                    xmlns:converter="clr-namespace:Wpf.Ui.Converters"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <CornerRadius x:Key="DialogFooterCornerRadius">0,0,8,8</CornerRadius>
+    <converter:IsHoverToColorConverter x:Key="IsHoverToColorConverter" />
+
+    <sys:String x:Key="CROSS_ICON">
+        m 478.50001 503.99991 a 25.319007 25.318313 0 0 1 -18.03058 -7.48595 L 15.474204 51.567621 c -9.9656052 -9.971708 -9.9656052 -26.126701 0 -36.09203 9.965602 -9.965329 26.12104 -9.965329 36.09302 0 L 496.52578 460.42671 c 9.96561 9.96534 9.96561 26.12193 0 36.08725 -5.00194 4.96991 -11.52821 7.48595 -18.02577 7.48595 z m 0 0 m -444.995241 0 c -6.532651 0 -13.066897 -2.48414 -18.030565 -7.48595 -9.9656052 -9.96532 -9.9656052 -26.12191 0 -36.08725 L 460.43755 15.473996 c 9.96559 -9.965328 26.12263 -9.965328 36.08823 0 9.96561 9.965329 9.96561 26.121917 0 36.093625 L 51.567224 496.51396 a 25.583695 25.582992 0 0 1 -18.062455 7.48595 z m 0 0
+    </sys:String>
+
+    <sys:String x:Key="QUESTION_ICON">
+        m 907.78279 1499.6093 c -38.80208 0 -70.18229 -31.3802 -70.18229 -70.1822 0 -91.7969 13.02083 -171.0938 38.93229 -237.7605 19.01042 -50.2604 49.86979 -100.9114 92.31771 -152.0833 31.25 -37.2396 87.2396 -91.66665 168.2292 -163.02082 80.9895 -71.48437 133.5937 -128.38541 157.9427 -170.83333 24.3489 -42.44791 36.3281 -88.80208 36.3281 -139.06249 0 -91.01562 -35.5469 -170.83333 -106.5104 -239.71354 -70.9636 -68.8802 -158.0729 -103.2552 -261.19793 -103.2552 -99.60938 0 -182.8125 31.25 -249.47917 93.61979 -48.69791 45.57291 -85.28645 109.89583 -109.5052 192.96874 -16.66667 57.03125 -72.26562 93.48958 -131.25 86.45833 C 398.66822 587.89062 349.44947 513.93228 370.80364 441.66666 403.61614 330.59896 458.56405 241.14583 535.51718 173.17708 642.41822 78.515629 783.82446 31.250005 959.73592 31.250005 c 186.19788 0 334.76558 50.65104 445.70308 152.083325 110.9375 101.43229 166.2761 223.95833 166.2761 367.70833 0 83.20312 -19.5313 159.89583 -58.4636 229.94791 -38.9323 70.18229 -115.2343 155.46874 -228.6458 255.98953 -76.1719 67.5782 -126.0417 117.448 -149.4792 149.4792 -23.4375 32.0313 -40.7552 68.8802 -51.9531 110.4167 -8.3333 30.8593 -14.0625 76.1718 -17.1875 135.6771 -1.9531 37.5 -33.0729 66.927 -70.5729 66.927 h -87.63021 z m -83.20312 335.9375 c 0 -73.5677 59.63541 -133.2031 133.20312 -133.2031 73.56771 0 133.20311 59.6354 133.20311 133.2031 0 73.5677 -59.6354 133.2032 -133.20311 133.2032 -73.56771 0 -133.20312 -59.6355 -133.20312 -133.2032 z
+    </sys:String>
+
+    <Style x:Key="DefaultUiSimpleDialogStyle" TargetType="{x:Type controls:SimpleDialog}">
+        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}" />
+        <Setter Property="Border.CornerRadius" Value="{DynamicResource PopupCornerRadius}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="MinWidth" Value="400" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:SimpleDialog}">
+                    <Grid x:Name="LayoutRoot">
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Offset="0.0" Color="#CF202020" />
+                                <GradientStop Offset="1.0" Color="#8F202020" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <Border x:Name="DialogBorder"
+                                MinWidth="{TemplateBinding MinWidth}"
+                                Margin="12"
+                                Padding="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                CornerRadius="{TemplateBinding Border.CornerRadius}"
+                                Opacity="0">
+                            <Border.Background>
+                                <SolidColorBrush Color="{DynamicResource SystemFillColorSolidNeutralBackground}" />
+                            </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="30"
+                                                  Direction="0"
+                                                  Opacity="0.4"
+                                                  ShadowDepth="0"
+                                                  Color="#202020" />
+                            </Border.Effect>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Border Grid.Row="0"
+                                        Padding="24,20,24,20"
+                                        CornerRadius="8, 8, 0, 0">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#e3e3e3" />
+                                    </Border.Background>
+
+                                    <Grid>
+                                        <TextBlock x:Name="Title"
+                                                   Margin="0"
+                                                   VerticalAlignment="Center"
+                                                   FontWeight="Bold"
+                                                   Text="{TemplateBinding Title}" />
+                                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                                            <controls:Button x:Name="helpButton"
+                                                             Width="30"
+                                                             Height="30"
+                                                             Margin="0,0,3,0"
+                                                             Padding="7"
+                                                             VerticalAlignment="Center"
+                                                             Command="{Binding Path=HelpButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                             MouseOverBackground="Gray">
+
+                                                <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                                         Name="viewbox"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center"
+                                                         Stretch="Uniform">
+                                                    <Canvas Width="2000"
+                                                            Height="2000"
+                                                            SnapsToDevicePixels="True">
+                                                        <Viewbox HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center"
+                                                                 Stretch="Uniform">
+                                                            <Path Data="{Binding Source={StaticResource QUESTION_ICON}}">
+                                                                <Path.Fill>
+                                                                    <MultiBinding Converter="{StaticResource IsHoverToColorConverter}">
+                                                                        <!--  is mouse over  -->
+                                                                        <Binding Path="IsMouseOver" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:Button}}" />
+                                                                        <!--  hovered brush  -->
+                                                                        <Binding Source="{x:Static Brushes.White}" />
+                                                                        <!--  not hovered brush  -->
+                                                                        <Binding Source="{x:Static Brushes.Black}" />
+                                                                    </MultiBinding>
+                                                                </Path.Fill>
+
+
+                                                            </Path>
+                                                        </Viewbox>
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </controls:Button>
+                                            <controls:Button x:Name="closeButton"
+                                                             Width="30"
+                                                             Height="30"
+                                                             Padding="7"
+                                                             HorizontalAlignment="Right"
+                                                             VerticalAlignment="Center"
+                                                             Command="{Binding Path=CloseButtonCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                             IsEnabled="{TemplateBinding IsCloseButtonEnabled}"
+                                                             MouseOverBackground="Red">
+
+                                                <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center"
+                                                         SnapsToDevicePixels="True"
+                                                         Stretch="Uniform">
+                                                    <Canvas Width="512"
+                                                            Height="512"
+                                                            SnapsToDevicePixels="True">
+                                                        <Path Data="{Binding Source={StaticResource CROSS_ICON}}" SnapsToDevicePixels="True">
+                                                            <Path.Fill>
+                                                                <MultiBinding Converter="{StaticResource IsHoverToColorConverter}">
+                                                                    <!--  is mouse over  -->
+                                                                    <Binding Path="IsMouseOver" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type controls:Button}}" />
+                                                                    <!--  hovered brush  -->
+                                                                    <Binding Source="{x:Static Brushes.White}" />
+                                                                    <!--  not hovered brush  -->
+                                                                    <Binding Source="{x:Static Brushes.Black}" />
+                                                                </MultiBinding>
+                                                            </Path.Fill>
+
+
+                                                        </Path>
+                                                    </Canvas>
+                                                </Viewbox>
+                                            </controls:Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <Border Grid.Row="1"
+                                        Width="{TemplateBinding DialogHeight}"
+                                        Height="{TemplateBinding DialogHeight}"
+                                        MaxWidth="{TemplateBinding DialogMaxHeight}"
+                                        MaxHeight="{TemplateBinding DialogMaxHeight}"
+                                        Margin="0"
+                                        Padding="24,10,24,10">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock x:Name="Message"
+                                                   Grid.Row="0"
+                                                   Margin="0,0,0,5"
+                                                   Text="{TemplateBinding Message}"
+                                                   TextAlignment="Justify"
+                                                   TextWrapping="Wrap">
+                                            <TextBlock.Foreground>
+                                                <SolidColorBrush Color="{DynamicResource TextFillColorSecondary}" />
+                                            </TextBlock.Foreground>
+                                        </TextBlock>
+                                        <ContentPresenter Grid.Row="1"
+                                                          HorizontalAlignment="Stretch"
+                                                          VerticalAlignment="Stretch"
+                                                          Content="{TemplateBinding ContentControl.Content}" />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsShown" Value="False">
+                            <Setter TargetName="LayoutRoot" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="LayoutRoot" Property="Height" Value="0" />
+                        </Trigger>
+                        <Trigger Property="IsShown" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="DialogBorder"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         From="0"
+                                                         To="1"
+                                                         Duration="00:00:00.250" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                        <Trigger Property="Title" Value="{x:Null}">
+                            <Setter TargetName="Title" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Title" Value="">
+                            <Setter TargetName="Title" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Message" Value="{x:Null}">
+                            <Setter TargetName="Message" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                        <Trigger Property="Message" Value="">
+                            <Setter TargetName="Message" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource DefaultUiSimpleDialogStyle}" TargetType="{x:Type controls:SimpleDialog}" />
+
+
+</ResourceDictionary>

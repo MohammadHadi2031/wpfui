@@ -8,7 +8,6 @@ namespace Wpf.Ui.Extensions
             DependencyProperty.RegisterAttached("Placeholder", typeof(string), typeof(ComboBoxAssist), new PropertyMetadata(""));
 
         public static void SetPlaceholder(DependencyObject obj, string value) => obj.SetValue(PlaceholderProperty, value);
-
         public static string GetPlaceholder(DependencyObject obj) => (string)obj.GetValue(PlaceholderProperty);
     }
 }

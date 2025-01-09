@@ -41,7 +41,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// Property for <see cref="Value"/>.
     /// </summary>
     public static readonly DependencyProperty ValueProperty = DependencyProperty.Register(nameof(Value),
-        typeof(double), typeof(NumberBox), new FrameworkPropertyMetadata(0.0d, ValuePropertyChangedCallback)
+        typeof(decimal), typeof(NumberBox), new FrameworkPropertyMetadata(0M, ValuePropertyChangedCallback)
         {
             BindsTwoWayByDefault = true,
         });
@@ -50,19 +50,19 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// Property for <see cref="Step"/>.
     /// </summary>
     public static readonly DependencyProperty StepProperty = DependencyProperty.Register(nameof(Step),
-        typeof(double), typeof(NumberBox), new PropertyMetadata(1.0d));
+        typeof(decimal), typeof(NumberBox), new PropertyMetadata(1M));
 
     /// <summary>
     /// Property for <see cref="Max"/>.
     /// </summary>
     public static readonly DependencyProperty MaxProperty = DependencyProperty.Register(nameof(Max),
-        typeof(double), typeof(NumberBox), new PropertyMetadata(Double.MaxValue));
+        typeof(decimal), typeof(NumberBox), new PropertyMetadata(decimal.MaxValue));
 
     /// <summary>
     /// Property for <see cref="Min"/>.
     /// </summary>
     public static readonly DependencyProperty MinProperty = DependencyProperty.Register(nameof(Min),
-        typeof(double), typeof(NumberBox), new PropertyMetadata(Double.MinValue));
+        typeof(decimal), typeof(NumberBox), new PropertyMetadata(decimal.MinValue));
 
     /// <summary>
     /// Property for <see cref="DecimalPlaces"/>.
@@ -108,7 +108,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
 
     private string _cachedText = "";
     private bool _isUpdatingTextByCode;
-    private double _lastInRangeValue = 0d;
+    private decimal _lastInRangeValue = 0M;
     private bool _isUpdatingWithInRangeValue;
 
     private static void ValuePropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -123,7 +123,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
 
     private void ValuePropertyChangedCallback(DependencyPropertyChangedEventArgs e)
     {
-        var value = (double)e.NewValue;
+        var value = (decimal)e.NewValue;
 
         if (value > Max || value < Min)
         {
@@ -132,10 +132,10 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         else
         {
             _lastInRangeValue = value;
-            _cachedText = FormatDoubleToString(_lastInRangeValue);
+            _cachedText = FormatValueToString(_lastInRangeValue);
         }
 
-        var text = FormatDoubleToString(value);
+        var text = FormatValueToString(value);
 
         _isUpdatingTextByCode = true;
         Text = text;
@@ -172,36 +172,36 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// <summary>
     /// Gets or sets current numeric value.
     /// </summary>
-    public double Value
+    public decimal Value
     {
-        get => (double)GetValue(ValueProperty);
+        get => (decimal)GetValue(ValueProperty);
         set => SetValue(ValueProperty, value);
     }
 
     /// <summary>
     /// Gets or sets value by which the given number will be increased or decreased after pressing the button.
     /// </summary>
-    public double Step
+    public decimal Step
     {
-        get => (double)GetValue(StepProperty);
+        get => (decimal)GetValue(StepProperty);
         set => SetValue(StepProperty, value);
     }
 
     /// <summary>
     /// Maximum allowable value.
     /// </summary>
-    public double Max
+    public decimal Max
     {
-        get => (double)GetValue(MaxProperty);
+        get => (decimal)GetValue(MaxProperty);
         set => SetValue(MaxProperty, value);
     }
 
     /// <summary>
     /// Minimum allowable value.
     /// </summary>
-    public double Min
+    public decimal Min
     {
-        get => (double)GetValue(MinProperty);
+        get => (decimal)GetValue(MinProperty);
         set => SetValue(MinProperty, value);
     }
 
@@ -319,14 +319,14 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// <summary>
     /// Updates <see cref="Value"/> and <see cref="System.Windows.Controls.TextBox.Text"/>.
     /// </summary>
-    private void UpdateValue(double value, bool updateText)
+    private void UpdateValue(decimal value, bool updateText)
     {
         Value = value;
 
         if (!updateText)
             return;
 
-        var newText = FormatDoubleToString(value);
+        var newText = FormatValueToString(value);
 
         Text = newText;
         CaretIndex = newText.Length;
@@ -335,7 +335,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     /// <summary>
     /// Updates <see cref="Value"/> and <see cref="System.Windows.Controls.TextBox.Text"/>.
     /// </summary>
-    private void UpdateValue(double value, string updateText)
+    private void UpdateValue(decimal value, string updateText)
     {
         Value = value;
 
@@ -356,17 +356,23 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             return;
         }
 
-        if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        if (!TryParseStringToDecimal(currentText, out var parsedNumber))
         {
             return;
         }
 
         parsedNumber += Step;
 
-        if (String.IsNullOrWhiteSpace(currentText) || parsedNumber > Max)
+        if (string.IsNullOrWhiteSpace(currentText) || parsedNumber > Max)
         {
             UpdateValue(Max, true);
 
+            return;
+        }
+
+        if (parsedNumber < Min)
+        {
+            UpdateValue(Min, true);
             return;
         }
 
@@ -388,19 +394,25 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             return;
         }
 
-        if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        if (!TryParseStringToDecimal(currentText, out var parsedNumber))
         {
             return;
         }
 
         parsedNumber -= Step;
 
-        if (String.IsNullOrWhiteSpace(currentText) || parsedNumber < Min)
+        if (string.IsNullOrWhiteSpace(currentText) || parsedNumber < Min)
         {
             UpdateValue(Min, true);
-
             return;
         }
+
+        if (parsedNumber > Max)
+        {
+            UpdateValue(Max, true);
+            return;
+        }
+
 
         UpdateValue(parsedNumber, true);
 
@@ -408,9 +420,9 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     }
 
     /// <summary>
-    /// Formats double number according to configuration.
+    /// Formats decimal number according to configuration.
     /// </summary>
-    private string FormatDoubleToString(double number)
+    private string FormatValueToString(decimal number)
     {
         if (IntegersOnly || DecimalPlaces < 1)
             return number.ToString("F0", CultureInfo.InvariantCulture);
@@ -464,11 +476,11 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     }
 
     /// <summary>
-    /// Tries to parse provided string to double with invariant culture.
+    /// Tries to parse provided string to decimal with invariant culture.
     /// </summary>
-    private bool TryParseStringToDouble(string inputText, out double number)
+    private bool TryParseStringToDecimal(string inputText, out decimal number)
     {
-        return double.TryParse(inputText, NumberStyles.Any, CultureInfo.InvariantCulture, out number);
+        return decimal.TryParse(inputText, NumberStyles.Any, CultureInfo.InvariantCulture, out number);
     }
 
     /// <summary>
@@ -477,7 +489,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
         _isUpdatingTextByCode = true;
-        Text = FormatDoubleToString(Value);
+        Text = FormatValueToString(Value);
         _isUpdatingTextByCode = false;
     }
 
@@ -542,7 +554,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         }
 
         //var currentText = Text;
-        //if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        //if (!TryParseStringTodecimal(currentText, out var parsedNumber))
         //{
         //    return;
         //}
@@ -571,7 +583,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
     private void UpdateText()
     {
         var currentText = Text?.Trim();
-        
+
         if (!string.IsNullOrEmpty(currentText) &&
                     !IsNumberTextValid(currentText))
         {
@@ -592,7 +604,7 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
             return;
         }
 
-        if (!TryParseStringToDouble(currentText, out var parsedNumber))
+        if (!TryParseStringToDecimal(currentText, out var parsedNumber))
         {
             return;
         }
@@ -618,11 +630,11 @@ public class NumberBox : Wpf.Ui.Controls.TextBox
         }
 
         parsedNumber = Math.Round(parsedNumber, DecimalPlaces);
-        var newText = FormatDoubleToString(parsedNumber);
+        var newText = FormatValueToString(parsedNumber);
         Text = newText;
 
         PlaceholderEnabled = currentText.Length < 1;
-       
+
         if (!_isUpdatingWithInRangeValue)
         {
             HasOutOfRangeError = false;

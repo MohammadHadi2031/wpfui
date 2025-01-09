@@ -6,7 +6,8 @@
 #nullable enable
 
 using System;
-using Wpf.Ui.Controls.Interfaces;
+
+using Wpf.Ui.Controls.Interfaces.Dialogs;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace Wpf.Ui.Mvvm.Services;
